@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+
+require 'tempfile'
+require 'true_github_markdown'
+
+include TrueGithubMarkdown
+
+def open_in_browser(html)
+  file = Tempfile.new ['true_github_markdown', '.html']
+
+  begin
+    file.write html
+  ensure
+    # Clear the buffer
+    file.close
+    `open #{file.path}`
+
+    # Make sure browser has time to open before unlinking
+    sleep 1
+    file.unlink
+  end
+end
+
+def create_html_from_md(filename)
+  markdown = File.read filename
+  unstyled_html = Renderer::Markdown::Github.new(markdown).to_html
+  Renderer::HTML.new(unstyled_html).render
+end
+
+html = create_html_from_md ARGV[0]
+open_in_browser html
