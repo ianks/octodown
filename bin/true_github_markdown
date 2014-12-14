@@ -23,7 +23,7 @@ end
 
 def create_html_from_md(filename)
   markdown = File.read filename
-  unstyled_html = Renderer::Markdown::Github.new(markdown).to_html
+  unstyled_html = Renderer::Markdown::Redcarpet.new(markdown).to_html
   Renderer::HTML.new(unstyled_html).render
 end
 
