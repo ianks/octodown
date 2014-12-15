@@ -1,6 +1,6 @@
 require 'erb'
 
-module TrueGithubMarkdown
+module Octodown
   module Renderer
     class HTML
       attr_reader :rendered_markdown, :template
@@ -21,7 +21,7 @@ module TrueGithubMarkdown
       end
 
       def stylesheet
-        stylesheet_file = File.join TrueGithubMarkdown.root, 'assets',
+        stylesheet_file = File.join Octodown.root, 'assets',
           "#{template}.css"
         File.read stylesheet_file
       end

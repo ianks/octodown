@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'true_github_markdown/version'
+require 'octodown/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "true_github_markdown"
-  spec.version       = TrueGithubMarkdown::VERSION
+  spec.name          = "octodown"
+  spec.version       = Octodown::VERSION
   spec.authors       = ["Ian Ker-Seymer"]
   spec.email         = ["i.kerseymer@gmail.com"]
   spec.summary       = %q{Simple markdown preview for VIM.}

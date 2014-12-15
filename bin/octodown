@@ -1,12 +1,12 @@
 #!/usr/bin/env ruby
 
 require 'tempfile'
-require 'true_github_markdown'
+require 'octodown'
 
-include TrueGithubMarkdown
+include Octodown
 
 def open_in_browser(html)
-  file = Tempfile.new ['true_github_markdown', '.html']
+  file = Tempfile.new ['octodown', '.html']
 
   begin
     file.write html

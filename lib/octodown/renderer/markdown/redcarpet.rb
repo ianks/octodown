@@ -1,7 +1,7 @@
 require 'coderay'
 require 'redcarpet'
 
-module TrueGithubMarkdown
+module Octodown
   module Renderer
     module Markdown
       class Redcarpet

@@ -2,7 +2,7 @@ require 'net/http'
 require 'json'
 require 'uri'
 
-module TrueGithubMarkdown
+module Octodown
   module Renderer
     module Markdown
       class Github
