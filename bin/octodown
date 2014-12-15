@@ -22,10 +22,13 @@ def open_in_browser(html)
 end
 
 def create_html_from_md(filename)
-  markdown = File.read filename
-  unstyled_html = Renderer::Markdown::Redcarpet.new(markdown).to_html
+  unstyled_html = Renderer::GithubMarkdown.new(filename).to_html
   Renderer::HTML.new(unstyled_html).render
 end
 
-html = create_html_from_md ARGV[0]
-open_in_browser html
+if ARGV[0] && File.exists?(file = ARGV[0])
+  html = create_html_from_md file
+  open_in_browser html
+else
+  puts "usage: #$0 FILE"
+end

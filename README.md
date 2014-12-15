@@ -4,6 +4,8 @@ TODO: Write a gem description
 
 ## Installation
 
+:+1:
+
 Add this line to your application's Gemfile:
 
 ```ruby

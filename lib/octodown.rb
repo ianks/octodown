@@ -1,6 +1,5 @@
 require 'octodown/version'
-require 'octodown/renderer/markdown/github'
-require 'octodown/renderer/markdown/redcarpet'
+require 'octodown/renderer/github_markdown'
 require 'octodown/renderer/html'
 
 module Octodown

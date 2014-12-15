@@ -19,6 +19,12 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_dependency "redcarpet"
-  spec.add_dependency "coderay"
+
+  spec.add_dependency "github-markup"
+  spec.add_dependency "github-linguist"
+  spec.add_dependency "html-pipeline"
+  spec.add_dependency "sanitize"
+  spec.add_dependency "github-markdown"
+  spec.add_dependency "gemoji"
+  spec.add_dependency "pygments.rb"
 end
