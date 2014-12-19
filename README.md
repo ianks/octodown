@@ -1,28 +1,26 @@
-# Octodown
+:octocat: octodown
+==================
 
-TODO: Write a gem description
+Ever wanted to easily preview what you markdown would look like *exactly* on
+Github? Ever wanted to do that from inside of a Terminal? Well this Gem is for
+you. Dead simple. Never get caught writing ugly markdown again.
+
+## Features:
+
+  * Uses the same markdown parsers and CSS as Github for true duplication.
+    - Yes emojis *are* included :clap:
+  * Fast. `octodown` uses native parsers to make things quick.
+  * Multiple CSS styles. Choose from either:
+    - The `github.com` markdown (default)
+    - The `Atom` text editor markdown
 
 ## Installation
-
-:+1:
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'octodown'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
 
     $ gem install octodown
 
 ## Usage
 
-TODO: Write usage instructions here
+    $ octodown README.md
 
 ## Contributing
 
