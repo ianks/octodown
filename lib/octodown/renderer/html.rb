@@ -5,7 +5,7 @@ module Octodown
     class HTML
       attr_reader :rendered_markdown, :template
 
-      def initialize(rendered_markdown, template: 'markdown-preview')
+      def initialize(rendered_markdown, template: 'github')
         @rendered_markdown = rendered_markdown
         @template = template
       end
@@ -22,7 +22,7 @@ module Octodown
 
       def stylesheet
         stylesheet_file = File.join Octodown.root, 'assets',
-          "#{template}.css"
+          'github.css'
         File.read stylesheet_file
       end
 
