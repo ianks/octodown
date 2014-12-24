@@ -9,14 +9,17 @@ you. Dead simple. Never get caught writing ugly markdown again.
 
   * Uses the same markdown parsers and CSS as Github for true duplication.
     - Yes emojis *are* included :clap:
-  * Fast. `octodown` uses native parsers to make things quick.
+  * Fast. `octodown` uses native parsers to ensure performance.
   * Multiple CSS styles. Choose from either:
+    - `$ octodown --style atom README.md`
     - The `github.com` markdown (default)
     - The `Atom` text editor markdown
 
 ## Installation
-
+  1. If you have a non-system Ruby (*highly recommended*):
     $ gem install octodown
+  2. Else:
+    $ sudo gem install octodown
 
 ## Usage
 
