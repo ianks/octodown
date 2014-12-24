@@ -14,16 +14,28 @@ you. Dead simple. Never get caught writing ugly markdown again.
     - `$ octodown --style atom README.md`
     - The `github.com` markdown (default)
     - The `Atom` text editor markdown
+  * Properly parses `STDIN`
+    - `$ cat README.md | octodown`
 
 ## Installation
-  1. If you have a non-system Ruby (*highly recommended*):
-    $ gem install octodown
-  2. Else:
-    $ sudo gem install octodown
+
+  1. Install `icu4u` and `cmake`:
+    * Mac: `$ brew install icu4u cmake`
+    * Apt: `$ sudo apt-get install -y icu4u build-essential`
+  2. If you have a non-system Ruby (*highly recommended*):
+    * `$ gem install octodown`
+  3. Else:
+    * `$ sudo gem install octodown`
 
 ## Usage
 
     $ octodown README.md
+
+## Notes
+
+  1. With no arguments given, octodown will read STDIN until EOF is reached. In
+  order to work with this mode, type what you want into the input, then press
+  `Ctrl-D` when finished.
 
 ## Contributing
 

@@ -2,7 +2,7 @@ require 'tempfile'
 
 describe Octodown::Renderer::HTML do
   let(:dummy_path) { File.join(File.dirname(__FILE__), 'dummy', 'test.md') }
-  let(:html) { Octodown::Renderer::GithubMarkdown.new(dummy_path).to_html }
+  let(:html) { Octodown::Renderer::GithubMarkdown.new(File.read(dummy_path)).to_html }
   subject { Octodown::Renderer::HTML.new(html).render }
 
   before { allow(Octodown).to receive(:root) { '.' } }

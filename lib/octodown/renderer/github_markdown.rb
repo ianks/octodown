@@ -5,14 +5,14 @@ require 'html/pipeline'
 module Octodown
   module Renderer
     class GithubMarkdown
-      attr_reader :file
+      attr_reader :content
 
-      def initialize(file)
-        @file = File.read file
+      def initialize(content)
+        @content = content
       end
 
       def to_html
-        pipeline.call(file)[:output].to_s
+        pipeline.call(content)[:output].to_s
       end
 
       private
