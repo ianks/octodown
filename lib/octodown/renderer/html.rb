@@ -17,7 +17,7 @@ module Octodown
       end
 
       def title
-        'True Github Markdown Preview'
+        'Octodown Preview'
       end
 
       def stylesheet
