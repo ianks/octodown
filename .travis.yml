@@ -1,0 +1,11 @@
+language: ruby
+sudo: true
+before_install:
+    - gem update --system
+    - apt-get install libicu-dev build-essential
+install: 'bundle install'
+script: 'bundle exec rspec --format documentation'
+rvm:
+  - '2.1.4'
+  - '2.0.0'
+  - '1.9.3'
