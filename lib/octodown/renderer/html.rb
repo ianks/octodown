@@ -5,7 +5,7 @@ module Octodown
     class HTML
       attr_reader :rendered_markdown, :template
 
-      def initialize(rendered_markdown, template: 'github')
+      def initialize(rendered_markdown, template)
         @rendered_markdown = rendered_markdown
         @template = template
       end
