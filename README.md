@@ -1,5 +1,6 @@
 :octocat: octodown
 ==================
+[![Build Status](https://travis-ci.org/ianks/octodown.svg)](https://travis-ci.org/ianks/octodown)
 
 Ever wanted to easily preview what you markdown would look like *exactly* on
 Github? Ever wanted to do that from inside of a Terminal? Well this Gem is for
