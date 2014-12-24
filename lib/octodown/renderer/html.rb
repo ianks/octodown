@@ -22,7 +22,7 @@ module Octodown
 
       def stylesheet
         stylesheet_file = File.join Octodown.root, 'assets',
-          'github.css'
+          "#{template}.css"
         File.read stylesheet_file
       end
 
@@ -34,7 +34,7 @@ module Octodown
       end
 
       def template_filepath
-        File.join parent_dir, 'template', "#{template}.erb"
+        File.join parent_dir, 'template', 'github.erb'
       end
     end
   end

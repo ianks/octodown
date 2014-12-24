@@ -2,8 +2,24 @@
 
 require 'tempfile'
 require 'octodown'
+require 'optparse'
 
 include Octodown
+
+options = {}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: octodown [options]"
+
+  opts.on("-s", "--style [STYLE]", [:github, :atom], "Choose style (atom, github)") do |s|
+    options[:style] = s
+  end
+
+  opts.on_tail("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+end.parse!
 
 def open_in_browser(html)
   file = Tempfile.new ['octodown', '.html']
@@ -21,14 +37,14 @@ def open_in_browser(html)
   end
 end
 
-def create_html_from_md(filename)
+def create_html_from_md(filename, template)
   unstyled_html = Renderer::GithubMarkdown.new(filename).to_html
-  Renderer::HTML.new(unstyled_html).render
+  Renderer::HTML.new(unstyled_html, template: template).render
 end
 
-if ARGV[0] && File.exists?(file = ARGV[0])
-  html = create_html_from_md file
+if ARGV[0] && File.exists?(file = ARGV.pop)
+  html = create_html_from_md(file, options[:style] || 'github')
   open_in_browser html
 else
-  puts "usage: #$0 FILE"
+  puts 'Please specify a filename.'
 end
