@@ -34,7 +34,7 @@ module Octodown
       end
 
       def template_filepath
-        File.join parent_dir, 'template', 'github.erb'
+        File.join parent_dir, 'template', 'octodown.html.erb'
       end
     end
   end
