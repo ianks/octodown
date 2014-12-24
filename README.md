@@ -16,9 +16,12 @@ you. Dead simple. Never get caught writing ugly markdown again.
     - The `Atom` text editor markdown
 
 ## Installation
-  1. If you have a non-system Ruby (*highly recommended*):
+  1. Install `icu4u` and `cmake`:
+    * Mac: `$ brew install icu4u cmake`
+    * Apt: `$ sudo apt-get install -y icu4u build-essential`
+  2. If you have a non-system Ruby (*highly recommended*):
     $ gem install octodown
-  2. Else:
+  3. Else:
     $ sudo gem install octodown
 
 ## Usage
