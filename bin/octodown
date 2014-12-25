@@ -1,8 +1,9 @@
 #!/usr/bin/env ruby
 
-require 'tempfile'
 require 'octodown'
 require 'optparse'
+require 'pathname'
+require 'securerandom'
 
 include Octodown
 
@@ -21,26 +22,38 @@ OptionParser.new do |opts|
   end
 end.parse!
 
+def create_html_from_md(filename, template)
+  unstyled_html = Renderer::GithubMarkdown.new(filename).to_html
+  Renderer::HTML.new(unstyled_html, template).render
+end
+
+
+def open_browser_cmd
+  if RUBY_PLATFORM.include? 'darwin'
+    return '/usr/bin/open'
+  elsif RUBY_PLATFORM.include? 'linux'
+    candidates = %w(/usr/bin/xdg-open /usr/bin/x-www-browser)
+
+    candidates.each do |cmd|
+      return cmd if File.exists? cmd
+    end
+  else
+    return 'start'
+  end
+
+  false
+end
+
 def open_in_browser(html)
-  file = Tempfile.new ['octodown', '.html']
+  tmp = Pathname.new "/tmp/octodown_#{SecureRandom.hex}.html"
+  file = File.open(tmp, 'w') { |file| file.write html }
 
-  begin
-    file.write html
-  ensure
-    # Clear the buffer
-    file.close
-    `open #{file.path}`
-
-    # Make sure browser has time to open before unlinking
-    sleep 1
-    file.unlink
+  if cmd = open_browser_cmd
+    Process.spawn(cmd, tmp.to_s, [:out, :err] => File.open('/dev/null').fileno)
+  else
+    raise RuntimeError, 'No compatible shell command to open file in browser'
   end
 end
 
-def create_html_from_md(filename, template)
-  unstyled_html = Renderer::GithubMarkdown.new(filename).to_html
-  Renderer::HTML.new(unstyled_html, template: template).render
-end
-
-html = create_html_from_md(ARGF.read, options[:style] || 'github')
+html = create_html_from_md ARGF.read, options[:style] || 'github'
 open_in_browser html
