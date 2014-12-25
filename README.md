@@ -32,11 +32,11 @@ you. Dead simple. Never get caught writing ugly markdown again.
 ## Usage
 
   1. Basic:
-    `$ octodown README.md`
+    * `$ octodown README.md`
   2. Markdown preview styling
-    `$ octodown --style atom README.md`
+    * `$ octodown --style atom README.md`
   3. *nix lovers
-    `$ echo '# Hello world!' | octodown --raw > index.html`
+    * `$ echo '# Hello world!' | octodown --raw > index.html`
 
 ## Notes
 
