@@ -1,3 +1,3 @@
 module Octodown
-  VERSION = '0.0.1alpha1'
+  VERSION = '0.1.0beta1'
 end
