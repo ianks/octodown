@@ -36,7 +36,7 @@ you. Dead simple. Never get caught writing ugly markdown again.
   2. Markdown preview styling
     $ octodown --style atom README.md
   3. *nix lovers
-    $ echo '# Hello world!' | octodown
+    $ echo '# Hello world!' | octodown --raw > index.html
 
 ## Notes
 

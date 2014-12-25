@@ -14,17 +14,29 @@ OptionParser.new do |opts|
     options[:style] = s
   end
 
+  opts.on('-r', '--[no-]raw', 'Print raw HTML to STDOUT') do |r|
+    options[:raw] = r
+  end
+
   opts.on_tail('-h', '--help', 'Show this message') do
     puts opts
     exit
   end
 end.parse!
 
-browser = Support::Browser.new
-input_contents = ARGF.read
-html_file = Support::Helpers.markdown_to_html input_contents,
-  options[:style] || 'github'
+def main(options)
+  include Octodown::Support
 
-browser.open html_file
+  input_contents = ARGF.read
+  style = options[:style] || 'github'
 
-exit
+  if options[:raw]
+    puts Helpers.markdown_to_raw_html input_contents, style
+  else
+    browser = Browser.new
+    html_file = Helpers.markdown_to_html input_contents, style
+    browser.open html_file
+  end
+end
+
+main(options)
