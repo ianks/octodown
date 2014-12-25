@@ -1,5 +1,6 @@
 :octocat: octodown
 ==================
+[![GemVersion](https://badge.fury.io/rb/octodown.svg)](http://badge.fury.io/rb/octodown)
 [![Build Status](https://travis-ci.org/ianks/octodown.svg)](https://travis-ci.org/ianks/octodown)
 
 Ever wanted to easily preview what you markdown would look like *exactly* on
