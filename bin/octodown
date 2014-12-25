@@ -2,58 +2,29 @@
 
 require 'octodown'
 require 'optparse'
-require 'pathname'
-require 'securerandom'
 
 include Octodown
 
 options = {}
 
 OptionParser.new do |opts|
-  opts.banner = "Usage: octodown [options]"
+  opts.banner = 'Usage: octodown [options]'
 
-  opts.on("-s", "--style [STYLE]", [:github, :atom], "Choose style (atom, github)") do |s|
+  opts.on('-s', '--style [STYLE]', [:github, :atom], 'Choose style (atom, github)') do |s|
     options[:style] = s
   end
 
-  opts.on_tail("-h", "--help", "Show this message") do
+  opts.on_tail('-h', '--help', 'Show this message') do
     puts opts
     exit
   end
 end.parse!
 
-def create_html_from_md(filename, template)
-  unstyled_html = Renderer::GithubMarkdown.new(filename).to_html
-  Renderer::HTML.new(unstyled_html, template).render
-end
+browser = Support::Browser.new
+input_contents = ARGF.read
+html_file = Support::Helpers.markdown_to_html input_contents,
+  options[:style] || 'github'
 
+browser.open html_file
 
-def open_browser_cmd
-  if RUBY_PLATFORM.include? 'darwin'
-    return '/usr/bin/open'
-  elsif RUBY_PLATFORM.include? 'linux'
-    candidates = %w(/usr/bin/xdg-open /usr/bin/x-www-browser)
-
-    candidates.each do |cmd|
-      return cmd if File.exists? cmd
-    end
-  else
-    return 'start'
-  end
-
-  false
-end
-
-def open_in_browser(html)
-  tmp = Pathname.new "/tmp/octodown_#{SecureRandom.hex}.html"
-  file = File.open(tmp, 'w') { |file| file.write html }
-
-  if cmd = open_browser_cmd
-    Process.spawn(cmd, tmp.to_s, [:out, :err] => File.open('/dev/null').fileno)
-  else
-    raise RuntimeError, 'No compatible shell command to open file in browser'
-  end
-end
-
-html = create_html_from_md ARGF.read, options[:style] || 'github'
-open_in_browser html
+exit
