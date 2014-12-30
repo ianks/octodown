@@ -21,8 +21,8 @@ you. Dead simple. Never get caught writing ugly markdown again.
 
 ## Installation
 
-  1. Install `icu4u` and `cmake`:
-    * Mac: `$ brew install icu4u cmake`
+  1. Install `icu4c` and `cmake`:
+    * Mac: `$ brew install icu4c cmake`
     * Apt: `$ sudo apt-get install -y libicu-dev cmake`
   2. If you have a non-system Ruby (*highly recommended*):
     * `$ gem install octodown`
