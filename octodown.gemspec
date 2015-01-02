@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = Octodown::VERSION
   spec.authors       = ['Ian Ker-Seymer']
   spec.email         = ['i.kerseymer@gmail.com']
-  spec.summary       = %q{Simple and precise markdown previewing from your terminal.}
+  spec.summary       = 'Github markdown straight from your shell.'
   spec.homepage      = 'https://github.com/ianks/octodown'
   spec.license       = 'MIT'
 

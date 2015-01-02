@@ -15,7 +15,7 @@ module Octodown
       attr_reader :cmd
 
       def determine_browser_open_cmd
-        open_in_browser_candidates.detect { |cmd| File.exists? cmd }
+        open_in_browser_candidates.detect { |cmd| File.exist? cmd }
       end
 
       def open_in_browser_candidates

@@ -18,7 +18,7 @@ module Octodown
       private
 
       def context
-        { :asset_root => 'https://assets-cdn.github.com/images/icons/'}
+        { :asset_root => 'https://assets-cdn.github.com/images/icons/' }
       end
 
       def pipeline
