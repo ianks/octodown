@@ -7,6 +7,8 @@ Ever wanted to easily preview what you markdown would look like *exactly* on
 Github? Ever wanted to do that from inside of a Terminal? Well this Gem is for
 you. Dead simple. Never get caught writing ugly markdown again.
 
+![Octodown GIF](assets/octodown.gif?raw=true)
+
 ## Features:
 
   * Uses the same markdown parsers and CSS as Github for true duplication.
