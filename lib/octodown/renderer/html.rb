@@ -21,8 +21,12 @@ module Octodown
       end
 
       def stylesheet
-        stylesheet_file = File.join Octodown.root, 'assets',
+        stylesheet_file = File.join(
+          Octodown.root,
+          'assets',
           "#{template}.css"
+        )
+
         File.read stylesheet_file
       end
 

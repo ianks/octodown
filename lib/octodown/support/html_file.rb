@@ -10,9 +10,9 @@ module Octodown
       end
 
       def persistent_write(content)
-        self.write content
-        self.close
-        self.persist
+        write content
+        close
+        persist
       end
     end
   end

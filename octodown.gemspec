@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = Octodown::VERSION
   spec.authors       = ['Ian Ker-Seymer']
   spec.email         = ['i.kerseymer@gmail.com']
-  spec.summary       = %q{Simple and precise markdown previewing from your terminal.}
+  spec.summary       = 'Github markdown straight from your shell.'
   spec.homepage      = 'https://github.com/ianks/octodown'
   spec.license       = 'MIT'
 
@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'pygments.rb',         '~> 0.6.0'
 
   spec.add_development_dependency 'rspec',   '~> 3.1.0'
+  spec.add_development_dependency 'rubocop', '~> 0.28.0'
   spec.add_development_dependency 'bundler', '~> 1.7'
   spec.add_development_dependency 'rake',    '~> 10.0'
 end

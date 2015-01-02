@@ -10,7 +10,12 @@ options = {}
 OptionParser.new do |opts|
   opts.banner = 'Usage: octodown [options]'
 
-  opts.on('-s', '--style [STYLE]', [:github, :atom], 'Choose style (atom, github)') do |s|
+  opts.on(
+    '-s',
+    '--style [STYLE]',
+    [:github, :atom],
+    'Choose style (atom, github)'
+  ) do |s|
     options[:style] = s
   end
 
