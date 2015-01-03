@@ -5,10 +5,11 @@ require 'html/pipeline'
 module Octodown
   module Renderer
     class GithubMarkdown
-      attr_reader :content
+      attr_reader :content, :document_root
 
-      def initialize(content)
+      def initialize(content, document_root)
         @content = content
+        @document_root = document_root
       end
 
       def to_html
@@ -18,12 +19,16 @@ module Octodown
       private
 
       def context
-        { :asset_root => 'https://assets-cdn.github.com/images/icons/' }
+        {
+          :asset_root => 'https://assets-cdn.github.com/images/icons/',
+          :original_document_root => document_root
+        }
       end
 
       def pipeline
         ::HTML::Pipeline.new [
           ::HTML::Pipeline::MarkdownFilter,
+          ::Octodown::Support::RelativeRootFilter,
           ::HTML::Pipeline::SanitizationFilter,
           ::HTML::Pipeline::ImageMaxWidthFilter,
           ::HTML::Pipeline::MentionFilter,
