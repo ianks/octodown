@@ -3,7 +3,7 @@ require 'tempfile'
 describe Octodown::Renderer::GithubMarkdown do
   let(:dummy_path) { File.join(File.dirname(__FILE__), 'dummy', 'test.md') }
   let(:html) do
-    Octodown::Renderer::GithubMarkdown.new(File.read(dummy_path)).to_html
+    Octodown::Renderer::GithubMarkdown.new(File.read(dummy_path), 'tmp').to_html
   end
 
   it 'create HTML from markdown file' do

@@ -11,10 +11,7 @@ OptionParser.new do |opts|
   opts.banner = 'Usage: octodown [options]'
 
   opts.on(
-    '-s',
-    '--style [STYLE]',
-    [:github, :atom],
-    'Choose style (atom, github)'
+    '-s', '--style [STYLE]', [:github, :atom], 'Choose style (atom, github)'
   ) do |s|
     options[:style] = s
   end
@@ -32,15 +29,15 @@ end.parse!
 def main(options)
   include Octodown::Support
 
-  input_contents = ARGF.read
+  content = ARGF.read
   style = options[:style] || 'github'
+  path = File.dirname(File.expand_path(ARGF.path))
 
   if options[:raw]
-    puts Helpers.markdown_to_raw_html input_contents, style
+    puts Helpers.markdown_to_raw_html content, style, path
   else
-    browser = Browser.new
-    html_file = Helpers.markdown_to_html input_contents, style
-    browser.open html_file
+    html_file = Helpers.markdown_to_html content, style, path
+    Browser.new.open html_file
   end
 end
 
