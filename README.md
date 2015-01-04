@@ -58,7 +58,7 @@ primary goal to reproduce it as faithfully as possible.
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/octodown/fork )
+1. Fork it ( https://github.com/ianks/octodown/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
