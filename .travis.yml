@@ -5,8 +5,7 @@ before_install:
     - sudo apt-get install -y libicu-dev build-essential
 install: 'bundle install'
 script:
-  - 'bundle exec rspec --format documentation'
-  - 'bundle exec rubocop'
+  - bundle exec rake
 rvm:
   - '2.2.0'
   - '2.1.4'
