@@ -2,6 +2,16 @@ require 'bundler/gem_tasks'
 require 'open-uri'
 require 'fileutils'
 require 'tempfile'
+require 'rspec/core/rake_task'
+require 'rubocop/rake_task'
+
+RuboCop::RakeTask.new
+
+RSpec::Core::RakeTask.new :spec do |task|
+  task.rspec_opts = '--format documentation'
+end
+
+task :default => [:spec, :rubocop]
 
 task :styles do
   begin
