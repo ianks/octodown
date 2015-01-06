@@ -3,11 +3,11 @@ require 'erb'
 module Octodown
   module Renderer
     class HTML
-      attr_reader :rendered_markdown, :template
+      attr_reader :rendered_markdown, :style
 
-      def initialize(rendered_markdown, template)
+      def initialize(rendered_markdown, options)
         @rendered_markdown = rendered_markdown
-        @template = template
+        @style = options[:style] || 'github'
       end
 
       def render
@@ -24,7 +24,7 @@ module Octodown
         stylesheet_file = File.join(
           Octodown.root,
           'assets',
-          "#{template}.css"
+          "#{style}.css"
         )
 
         File.read stylesheet_file

@@ -5,11 +5,12 @@ require 'html/pipeline'
 module Octodown
   module Renderer
     class GithubMarkdown
-      attr_reader :content, :document_root
+      attr_reader :content, :document_root, :gfm
 
-      def initialize(content, document_root)
+      def initialize(content, document_root, options = {})
         @content = content
         @document_root = document_root
+        @gfm = options[:gfm] || false
       end
 
       def to_html
@@ -34,7 +35,7 @@ module Octodown
           ::HTML::Pipeline::MentionFilter,
           ::HTML::Pipeline::EmojiFilter,
           ::HTML::Pipeline::SyntaxHighlightFilter
-        ], context.merge(:gfm => true)
+        ], context.merge(:gfm => gfm)
       end
     end
   end

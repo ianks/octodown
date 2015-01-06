@@ -20,6 +20,10 @@ OptionParser.new do |opts|
     options[:raw] = r
   end
 
+  opts.on('-g', '--[no-]gfm', 'Use for non-README files (comments, etc)') do |g|
+    options[:gfm] = g
+  end
+
   opts.on_tail('-h', '--help', 'Show this message') do
     puts opts
     exit
@@ -30,13 +34,12 @@ def main(options)
   include Octodown::Support
 
   content = ARGF.read
-  style = options[:style] || 'github'
   path = File.dirname(File.expand_path(ARGF.path))
 
   if options[:raw]
-    puts Helpers.markdown_to_raw_html content, style, path
+    puts Helpers.markdown_to_raw_html content, options, path
   else
-    html_file = Helpers.markdown_to_html content, style, path
+    html_file = Helpers.markdown_to_html content, options, path
     Browser.new.open html_file
   end
 end
