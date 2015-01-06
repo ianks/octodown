@@ -34,6 +34,18 @@ primary goal to reproduce it as faithfully as possible.
     * `$ gem install octodown`
   3. Else:
     * `$ sudo gem install octodown`
+  4. Install in VIM (_optional_):
+    * Use [Dispatch](https://github.com/tpope/vim-dispatch) and add this to
+      your .vimrc:
+
+      ```viml
+      " Use octodown as default build command for Markdown files
+      autocmd FileType markdown let b:dispatch = 'octodown %'
+      ```
+
+    * Caveat: make sure you follow the directions on the Dispatch README.md and
+      make sure that the correct version of Ruby (the one which as Octodown
+      install as a Gem), is used.
 
 ## Usage
 
