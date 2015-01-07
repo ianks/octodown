@@ -1,9 +1,11 @@
 :octocat: octodown
 ==================
+
 [![GemVersion](https://badge.fury.io/rb/octodown.svg)](http://badge.fury.io/rb/octodown)
 [![Build Status](https://travis-ci.org/ianks/octodown.svg)](https://travis-ci.org/ianks/octodown)
 
-Ever wanted to easily preview what you markdown would look like *exactly* on
+
+Ever wanted to easily preview what you markdown would look like _exactly_ on
 Github? Ever wanted to do that from inside of a Terminal? Well this Gem is for
 you. Dead simple. Never get caught writing ugly markdown again.
 
@@ -13,42 +15,61 @@ primary goal to reproduce it as faithfully as possible.
 
 ![Octodown GIF](assets/octodown.gif?raw=true)
 
+-------------------------------------------------------------------------------
+
 ## Features:
 
-  * Uses the same markdown parsers and CSS as Github for true duplication.
-    - Yes emojis *are* included.
-  * Fast. `octodown` uses native parsers to ensure performance.
-  * Multiple CSS styles. Choose from either.
-    - `$ octodown --style atom README.md`
-    - The `github.com` markdown (default)
-    - The `Atom` text editor markdown
-  * Properly parses `STDIN`.
-    - `$ cat README.md | octodown`
+  - Uses the same markdown parsers and CSS as Github for true duplication.
+    - Yes emojis _are_ included. :smiling_imp:
+
+  - Fast. `octodown` uses native parsers to ensure performance.
+  - Multiple CSS styles.
+    - `octodown --style atom README.md`
+    - The `--github` markdown (default)
+    - The `--atom` text editor markdown
+
+  - Properly parses `STDIN`.
+    - `cat README.md | octodown`
 
 ## Installation
 
   1. Install `icu4c` and `cmake`:
-    * Mac: `$ brew install icu4c cmake`
-    * Apt: `$ sudo apt-get install -y libicu-dev cmake`
-  2. If you have a non-system Ruby (*highly recommended*):
-    * `$ gem install octodown`
-  3. Else:
-    * `$ sudo gem install octodown`
+    - Mac: `brew install icu4c cmake`
+    - Apt: `sudo apt-get install -y libicu-dev cmake`
+
+  2. Install octodown:
+    - If you have a non-system Ruby (_highly recommended_):  `gem install
+      octodown`
+    - Else: `sudo gem install octodown`
+
+  4. Install in VIM (_optional_):
+    - Use [Dispatch](https://github.com/tpope/vim-dispatch) and add this to
+      your .vimrc:
+
+      ```viml
+      " Use octodown as default build command for Markdown files
+      autocmd FileType markdown let b:dispatch = 'octodown %'
+      ```
+    - Caveat: make sure you follow the directions on the Dispatch README.md and
+      make sure that the correct version of Ruby (the one which as Octodown
+      install as a Gem), is used.
 
 ## Usage
 
   1. Basic:
-    * `$ octodown README.md`
+    - `octodown README.md`
+
   2. Markdown preview styling:
-    * `$ octodown --style atom README.md`
+    - `octodown --style atom README.md`
+
   3. *nix lovers:
-    * `$ echo '# Hello world!' | octodown --raw > index.html`
+    - `echo '# Hello world!' | octodown --raw > index.html`
 
 ## Notes
 
   1. With no arguments given, octodown will read `STDIN` until `EOF` is reached.
-    * In order to work with this mode, type what you want into the input, then press
-  `Ctrl-D` when finished.
+    - In order to work with this mode, type what you want into the input, then press
+      `Ctrl-D` when finished.
   2. `octodown` attempts to use default OS support for opening HTML files from
   terminal. In Mac, this would be the `open` command; for Linux it is either
   `xdg-open` or `x-www-browser`. If these are not set, octodown will not
