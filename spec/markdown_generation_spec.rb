@@ -35,4 +35,10 @@ describe Octodown::Renderer::GithubMarkdown do
       end
     end
   end
+
+  describe 'local file linking' do
+    it 'includes the local file from correct location' do
+      expect(html).to include '<a href="tmp/test.txt">some-file</a>'
+    end
+  end
 end
