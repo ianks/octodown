@@ -8,15 +8,18 @@ module Octodown
           next if img['src'].nil?
 
           src = img['src'].strip
+          root = context[:original_document_root]
 
-          img['src'] = relative_path_from_document_root src unless http_uri? src
+          unless http_uri? src
+            img['src'] = relative_path_from_document_root root, src
+          end
         end
 
         doc
       end
 
-      def relative_path_from_document_root(src)
-        File.join(context[:original_document_root], src).to_s
+      def relative_path_from_document_root(root, src)
+        File.join(root, src).to_s
       end
 
       def http_uri?(src)
