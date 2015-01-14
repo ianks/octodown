@@ -9,7 +9,7 @@ Ever wanted to easily preview what your markdown would look like _exactly_ on
 Github? Ever wanted to do that from inside of a Terminal? Well this Gem is for
 you. Dead simple. Never get caught writing ugly markdown again.
 
-Octodown uses the same parsers and CSS and Github uses for their markdown
+Octodown uses the same parsers and CSS that Github uses for their markdown
 rendering. Github markdown styling looks beautiful, so it is Octodown's
 primary goal to reproduce it as faithfully as possible.
 
