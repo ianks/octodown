@@ -9,6 +9,7 @@ PATH
       html-pipeline (~> 1.11.0)
       launchy (~> 2.4.3)
       pygments.rb (~> 0.6.0)
+      rack (~> 1.6.0)
       sanitize (~> 3.1.0)
 
 GEM
@@ -63,6 +64,9 @@ GEM
     pygments.rb (0.6.2)
       posix-spawn (~> 0.3.6)
       yajl-ruby (~> 1.2.0)
+    rack (1.6.0)
+    rack-test (0.6.3)
+      rack (>= 1.0)
     rainbow (2.0.0)
     rake (10.4.2)
     rspec (3.1.0)
@@ -85,7 +89,7 @@ GEM
       ruby-progressbar (~> 1.4)
     ruby-progressbar (1.7.1)
     rugged (0.22.0b5)
-    sanitize (3.1.0)
+    sanitize (3.1.1)
       crass (~> 1.0.1)
       nokogiri (>= 1.4.4)
       nokogumbo (= 1.2.0)
@@ -111,6 +115,7 @@ DEPENDENCIES
   octodown!
   octokit
   posix-spawn (= 0.3.9)
+  rack-test (~> 0.6.3)
   rake (~> 10.0)
   rspec (~> 3.1.0)
   rubocop (~> 0.28.0)
