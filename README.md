@@ -5,7 +5,7 @@
 [![Build Status](https://travis-ci.org/ianks/octodown.svg)](https://travis-ci.org/ianks/octodown)
 
 
-Ever wanted to easily preview what you markdown would look like _exactly_ on
+Ever wanted to easily preview what your markdown would look like _exactly_ on
 Github? Ever wanted to do that from inside of a Terminal? Well this Gem is for
 you. Dead simple. Never get caught writing ugly markdown again.
 
