@@ -6,7 +6,7 @@ module Octodown
       # TODO: Find a better home for this logic
       def self.markdown_to_html(content, options, path)
         html = markdown_to_raw_html(content, options, path)
-        tmp = Octodown::Support::HTMLFile.new 'octodown'
+        tmp = Octodown::Support::HTMLFile.new ['octodown', '.html']
         tmp.persistent_write html
       end
 
