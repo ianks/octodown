@@ -1,4 +1,6 @@
 language: ruby
+env:
+  - CI=true
 sudo: true
 before_install:
     - gem update --system
