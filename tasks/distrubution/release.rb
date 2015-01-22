@@ -3,7 +3,7 @@ Dir[File.join(Dir.pwd, 'tasks', '**', '*.rb')].each { |f| require f }
 require 'octokit'
 require 'pathname'
 
-module Distrubution
+module Distribution
   class Release
     attr_reader :tarball, :github, :package
 

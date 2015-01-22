@@ -1,4 +1,4 @@
-module Distrubution
+module Distribution
   module PackageHelpers
     def curl(file)
       system "curl -L -O --fail --silent #{file}"

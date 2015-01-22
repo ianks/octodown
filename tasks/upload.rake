@@ -1,4 +1,4 @@
-include Distrubution
+include Distribution
 
 desc 'Upload tarballs to GitHub'
 task :upload do

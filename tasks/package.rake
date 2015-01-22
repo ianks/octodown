@@ -1,4 +1,4 @@
-include Distrubution
+include Distribution
 
 desc 'Package octodown into self-contained programs'
 task :package do

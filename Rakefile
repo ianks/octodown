@@ -14,7 +14,7 @@ RSpec::Core::RakeTask.new :spec do |task|
   task.rspec_opts = '--format documentation'
 end
 
-Distrubution.configure do |config|
+Distribution.configure do |config|
   config.package_name = 'octodown'
   config.version = Octodown::VERSION
   config.rb_version = '20141215-2.1.5'
