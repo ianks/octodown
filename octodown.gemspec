@@ -8,13 +8,12 @@ Gem::Specification.new do |spec|
   spec.version       = Octodown::VERSION
   spec.authors       = ['Ian Ker-Seymer']
   spec.email         = ['i.kerseymer@gmail.com']
-  spec.summary       = 'Github markdown straight from your shell.'
+  spec.summary       = 'GitHub Markdown straight from your shell.'
   spec.homepage      = 'https://github.com/ianks/octodown'
   spec.license       = 'MIT'
 
-  spec.files         = `git ls-files -z`.split("\x0")
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  spec.files         = Dir['{lib,assets,bin}/**/*']
+  spec.executables   << 'octodown'
   spec.require_paths = ['lib']
 
   spec.add_dependency 'github-markup',       '~> 1.3.1'

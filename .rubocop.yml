@@ -1,6 +1,5 @@
 AllCops:
   Exclude:
-    - 'octodown.gemspec'
     - 'Rakefile'
 
 Style/Documentation:
