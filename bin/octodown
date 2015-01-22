@@ -10,6 +10,11 @@ options = {}
 OptionParser.new do |opts|
   opts.banner = 'Usage: octodown [options]'
 
+  opts.on_tail('--version', 'Show version') do
+    puts "octodown v#{Octodown::VERSION}"
+    exit
+  end
+
   opts.on(
     '-s', '--style [STYLE]', [:github, :atom], 'Choose style (atom, github)'
   ) do |s|
