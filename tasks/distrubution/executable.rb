@@ -1,6 +1,6 @@
 Dir[File.join(Dir.pwd, 'tasks', '**', '*.rb')].each { |f| require f }
 
-module Distrubution
+module Distribution
   class Executable
     attr_reader :package
 
@@ -21,7 +21,7 @@ module Distrubution
 
       FileUtils.cp(
         'packaging/wrapper.sh',
-        "#{package.dir}/#{Distrubution.configuration.package_name}"
+        "#{package.dir}/#{Distribution.configuration.package_name}"
       )
     end
   end

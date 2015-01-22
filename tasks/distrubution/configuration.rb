@@ -1,4 +1,4 @@
-module Distrubution
+module Distribution
   class << self
     attr_accessor :configuration
   end

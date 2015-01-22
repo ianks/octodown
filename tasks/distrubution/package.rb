@@ -3,7 +3,7 @@ require 'octodown'
 
 Dir[File.join(Dir.pwd, 'tasks', '**', '*.rb')].each { |f| require f }
 
-module Distrubution
+module Distribution
   class Package
     include PackageHelpers
 
@@ -13,9 +13,9 @@ module Distrubution
       abort 'Ruby 2.1.x required' if RUBY_VERSION !~ /^2\.1\./
 
       @arch = arch
-      @version = Distrubution.configuration.version
-      @rb_version = Distrubution.configuration.rb_version
-      @dir = "#{Distrubution.configuration.package_name}-" \
+      @version = Distribution.configuration.version
+      @rb_version = Distribution.configuration.rb_version
+      @dir = "#{Distribution.configuration.package_name}-" \
         "#{version}-#{arch}"
       @package = self
     end
@@ -40,7 +40,7 @@ module Distrubution
       print_to_console 'Cleaning up...'
 
       files = [
-        "#{Distrubution.configuration.packaging_dir}/" \
+        "#{Distribution.configuration.packaging_dir}/" \
         "traveling-ruby-#{rb_version}-#{arch}.tar.gz"
       ]
 

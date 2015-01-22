@@ -1,6 +1,6 @@
 Dir[File.join(Dir.pwd, 'tasks', '**', '*.rb')].each { |f| require f }
 
-module Distrubution
+module Distribution
   class Tarball
     attr_accessor :arch, :file, :version, :dir, :package
 

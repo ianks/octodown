@@ -1,6 +1,6 @@
 Dir[File.join(Dir.pwd, 'tasks', '**', '*.rb')].each { |f| require f }
 
-module Distrubution
+module Distribution
   class TravellingRuby
     attr_reader :package
 
@@ -45,7 +45,7 @@ module Distrubution
       print_to_console 'Downloading Ruby...'
       ruby = "traveling-ruby-#{package.rb_version}-#{package.arch}.tar.gz"
 
-      FileUtils.cd Distrubution.configuration.packaging_dir do
+      FileUtils.cd Distribution.configuration.packaging_dir do
         unless File.exist? ruby
           curl "http://d6r77u77i8pq3.cloudfront.net/releases/#{ruby}"
         end
