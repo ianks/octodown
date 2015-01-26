@@ -2,22 +2,17 @@ Dir[File.join(Dir.pwd, 'tasks', '**', '*.rb')].each { |f| require f }
 
 module Distribution
   class Tarball
+    include PackageHelpers
+    extend Forwardable
+
     attr_accessor :arch, :file, :version, :dir, :package
 
-    include PackageHelpers
+    def_delegators :@package, :arch, :dir
 
     def initialize(package)
       @package = package
-      @arch = package.arch
-      @dir = package.dir
-      @file = search
+      @file = search || build
       @version = extract_version
-    end
-
-    def self.create(package)
-      ball = new package
-      ball.build
-      ball
     end
 
     def self.upload(package)
@@ -39,8 +34,8 @@ module Distribution
     private
 
     def search
-      file = Dir['distro/*.tar.gz'].find { |n| n.include? "#{arch}.tar.gz" }
-      File.new file
+      ball = Dir['distro/*.tar.gz'].find { |n| n.include? "#{arch}.tar.gz" }
+      File.new ball unless ball.nil?
     end
 
     def extract_version
