@@ -23,6 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'github-markdown',     '~> 0.6.8'
   spec.add_dependency 'gemoji',              '~> 2.1.0'
   spec.add_dependency 'pygments.rb',         '~> 0.6.0'
+  spec.add_dependency 'launchy',             '~> 2.4.3'
 
   spec.add_development_dependency 'rspec',   '~> 3.1.0'
   spec.add_development_dependency 'rubocop', '~> 0.28.0'
