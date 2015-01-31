@@ -2,6 +2,7 @@
 
 require 'octodown'
 require 'optparse'
+require 'launchy'
 
 include Octodown
 
@@ -45,7 +46,7 @@ def main(options)
     puts Helpers.markdown_to_raw_html content, options, path
   else
     html_file = Helpers.markdown_to_html content, options, path
-    Browser.new.open html_file
+    Launchy.open html_file.path
   end
 end
 

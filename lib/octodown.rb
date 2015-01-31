@@ -1,6 +1,5 @@
 require 'octodown/renderer/github_markdown'
 require 'octodown/renderer/html'
-require 'octodown/support/browser'
 require 'octodown/support/helpers'
 require 'octodown/support/relative_root_filter'
 require 'octodown/support/html_file'
