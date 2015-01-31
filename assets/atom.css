@@ -19,9 +19,9 @@
   padding-top: 70px;
   text-align: center;
 }
-.markdown-body pre,
 .markdown-body code,
-.markdown-body tt {
+.markdown-body tt,
+.markdown-body atom-text-editor {
   font-size: 12px;
   font-family: Consolas, "Liberation Mono", Courier, monospace;
 }
@@ -34,6 +34,14 @@
 }
 .markdown-body ul > li {
   list-style-type: disc;
+}
+.markdown-body li > atom-text-editor {
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;
+}
+.markdown-body li:last-child > atom-text-editor {
+  margin-bottom: 0;
 }
 .markdown-body > *:first-child {
   margin-top: 0 !important;
@@ -140,7 +148,7 @@
 .markdown-body ol,
 .markdown-body dl,
 .markdown-body table,
-.markdown-body pre {
+.markdown-body atom-text-editor {
   margin: 15px 0;
 }
 .markdown-body hr {
@@ -350,15 +358,7 @@
 .markdown-body code {
   white-space: nowrap;
 }
-.markdown-body pre > code {
-  margin: 0;
-  padding: 0;
-  white-space: pre;
-  border: none;
-  background: transparent;
-  word-wrap: normal;
-}
-.markdown-body pre {
+.markdown-body atom-text-editor {
   background: #f8f8f8;
   border: 1px solid #ccc;
   font-size: 13px;
@@ -366,17 +366,8 @@
   overflow: auto;
   padding: 6px 10px;
   border-radius: 3px;
-}
-.markdown-body pre.editor-colors {
   background: #1d1f21;
   border: 1px solid #050606;
-}
-.markdown-body pre code,
-.markdown-body pre tt {
-  margin: 0;
-  padding: 0;
-  background-color: transparent;
-  border: none;
 }
 .markdown-body kbd {
   background-color: #dddddd;

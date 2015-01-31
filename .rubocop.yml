@@ -1,7 +1,3 @@
-AllCops:
-  Exclude:
-    - 'Rakefile'
-
 Style/Documentation:
   Description: 'Document classes and non-namespace modules.'
   Enabled: false
