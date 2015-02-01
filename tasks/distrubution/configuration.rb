@@ -9,6 +9,7 @@ module Distribution
   end
 
   class Configuration
-    attr_accessor :package_name, :packaging_dir, :version, :rb_version
+    attr_accessor :package_name, :packaging_dir, :version, :rb_version,
+                  :native_extensions
   end
 end
