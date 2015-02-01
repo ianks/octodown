@@ -6,6 +6,10 @@ describe Octodown::Renderer::GithubMarkdown do
   # Testing private methods because Nokogirl is a black box
   it 'detects an non-HTTP/HTTPS URI correctly' do
     expect(subject.send(:http_uri?, 'assets/test.png')).to eq false
+    expect(subject.send(
+      :http_uri?,
+      '#array#bsearch-vs-array#find-codecodearraybsearch-vs-findrb'
+    )).to eq false
   end
 
   it 'detects HTTP/HTTPS URI correctly' do

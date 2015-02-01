@@ -19,7 +19,12 @@ module Octodown
       end
 
       def http_uri?(src)
-        parsed_uri = URI.parse src
+        parsed_uri = begin
+          URI.parse src
+        rescue
+          src
+        end
+
         parsed_uri.is_a? URI::HTTP
       end
 
