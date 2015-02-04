@@ -29,13 +29,14 @@ module Distribution
       FileUtils.mkdir_p 'distro'
       system "tar -czf distro/#{dir}.tar.gz #{dir} > /dev/null"
       FileUtils.remove_dir "#{dir}", true
+      File.open("distro/#{dir}.tar.gz", "rb")
     end
 
     private
 
     def search
       ball = Dir['distro/*.tar.gz'].find { |n| n.include? "#{arch}.tar.gz" }
-      File.new ball unless ball.nil?
+      File.open(ball, "rb") unless ball.nil?
     end
 
     def extract_version
