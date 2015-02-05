@@ -12,7 +12,7 @@ module Distribution
     attr_reader :config, :dir, :tarball, :package, :arch
 
     def_delegators :@config, :version, :rb_version, :package_name,
-                   :packaging_dir
+                   :packaging_dir, :native_extensions
 
     def initialize(arch)
       abort 'Ruby 2.1.x required' if RUBY_VERSION !~ /^2\.1\./

@@ -29,6 +29,8 @@ module Distribution
       FileUtils.mkdir_p 'distro'
       system "tar -czf distro/#{dir}.tar.gz #{dir} > /dev/null"
       FileUtils.remove_dir "#{dir}", true
+
+      File.new "distro/#{dir}.tar.gz"
     end
 
     private
