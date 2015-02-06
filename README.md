@@ -68,12 +68,6 @@ primary goal to reproduce it as faithfully as possible.
 1. With no arguments given, octodown will read `STDIN` until `EOF` is reached.
   - In order to work with this mode, type what you want into the input, then press
     `Ctrl-D` when finished.
-1. `octodown` attempts to use default OS support for opening HTML files from
-  terminal. In Mac, this would be the `open` command; for Linux it is either
-  `xdg-open` or `x-www-browser`. If these are not set, octodown will not
-  automatically open the file in the browser. If octodown doesn't have the
-  commands necessary to open files in a browser, please consider opening a pull
-  request to add support!
 
 ## Contributing
 
