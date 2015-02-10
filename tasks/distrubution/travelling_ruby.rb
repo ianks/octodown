@@ -56,10 +56,10 @@ module Distribution
     end
 
     def install_native_extensions
-      FileUtils.mkdir_p "#{package.dir}/lib/vendor/ruby"
+      clean_old_extensions
 
       package.native_extensions.each do |ext|
-        FileUtils.cd "#{package.dir}/lib/vendor/ruby" do
+        FileUtils.cd "#{package.dir}/lib/app/vendor/ruby/2.1.0/extensions" do
           curl 'http://d6r77u77i8pq3.cloudfront.net/releases/' \
                "traveling-ruby-gems-#{package.rb_version}-#{package.arch}/" \
                "#{ext}.tar.gz"
@@ -69,11 +69,15 @@ module Distribution
       end
     end
 
+    def clean_old_extensions
+      files = Dir['lib/app/vendor/ruby/2.1.0/extensions/**/*']
+      files.each { |file| FileUtils.rm_rf file }
+    end
+
     def cleanup_files
       FileUtils.cd package.dir do
         files  = Dir['**/{test,spec,doc,example,examples,features,benchmark}']
         files += Dir['**/{tasks,Rakefile}']
-        files += Dir['lib/app/vendor/ruby/2.1.0/extensions/**/*']
         files += Dir['lib/ruby/lib/ruby/**/darkfish/images/**/*']
         files += Dir['**/*.{h,c,cpp,rl,java,class,md,rdoc,txt,gif}']
         files.each { |file| FileUtils.rm_rf file }
