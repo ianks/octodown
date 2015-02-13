@@ -29,6 +29,9 @@ primary goal to reproduce it as faithfully as possible.
 - Properly parses `STDIN`.
   - `cat README.md | octodown`
 
+  - Serves file with an HTTP server
+    - `octodown -S README.md`
+
 ## Installation
 
 1. Install `icu4c` and `cmake`:
@@ -62,6 +65,9 @@ primary goal to reproduce it as faithfully as possible.
 
 1. *nix lovers:
   - `echo '# Hello world!' | octodown --raw > index.html`
+
+  4. Live preview at `http://localhost:4567`:
+    - `octodown README.md --server --port 4567`
 
 ## Notes
 
