@@ -3,10 +3,11 @@ require 'uri'
 module Octodown
   module Support
     class RelativeRootFilter < HTML::Pipeline::Filter
-      attr_accessor :root
+      attr_accessor :root, :server
 
       def call
         @root = context[:original_document_root]
+        @server = context[:server]
 
         filter_images doc.search('img')
         filter_links doc.search('a')
@@ -15,7 +16,7 @@ module Octodown
       private
 
       def relative_path_from_document_root(root, src)
-        File.join(root, src).to_s
+        server ? src : File.join(root, src).to_s
       end
 
       def http_uri?(src)

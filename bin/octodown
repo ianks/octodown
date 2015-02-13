@@ -46,21 +46,4 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-def main(options)
-  include Octodown::Support
-
-  content = ARGF.read
-  path = File.dirname(File.expand_path(ARGF.path))
-
-  if options[:raw]
-    puts Helpers.markdown_to_raw_html content, options, path
-  elsif options[:server]
-    server = Server.new content, options, path
-    server.start
-  else
-    html_file = Helpers.markdown_to_html content, options, path
-    Launchy.open html_file.path
-  end
-end
-
-main(options)
+Octodown.call options

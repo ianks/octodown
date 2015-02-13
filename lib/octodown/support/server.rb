@@ -3,12 +3,14 @@ module Octodown
     class Server
       DEFAULT_PORT = 8080
 
-      def initialize(content, options, path)
+      attr_reader :file, :path, :options
+
+      def initialize(options = {})
         require 'rack'
 
-        @content = content
+        @file = ARGF.file
         @options = options
-        @path = path
+        @path = File.dirname(File.expand_path(ARGF.path))
       end
 
       def start
@@ -28,23 +30,31 @@ module Octodown
         res.finish
       end
 
+      # Cascade through this app and Rack::File app.
+      # If Server returns 404, Rack::File will try to serve a static file.
       def app
-        # Cascade through this app and Rack::File app.
-        # If Server returns 404, Rack::File will try to serve a static file.
-        @app ||= Rack::Cascade.new([self, Rack::File.new(@path)])
+        @app ||= Rack::Cascade.new([self, Rack::File.new(path)])
       end
 
       private
 
+      # Render HTML body from Markdown
       def body
-        # Render HTML body from Markdown
-        # Use / as document root to generate URLs with relative paths
-        Octodown::Support::Helpers
-          .markdown_to_raw_html(@content, @options, '/')
+        read_and_rewind file do
+          markdown = Renderer::GithubMarkdown.new(file, options).to_html
+          Renderer::HTML.new(markdown, options).render
+        end
       end
+
+      private
 
       def port
         @options[:port] || DEFAULT_PORT
+      end
+
+      def read_and_rewind(file)
+        file.rewind unless file.pos == 0
+        yield if block_given?
       end
     end
   end # Support

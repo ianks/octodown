@@ -5,12 +5,13 @@ require 'html/pipeline'
 module Octodown
   module Renderer
     class GithubMarkdown
-      attr_reader :content, :document_root, :gfm
+      attr_reader :content, :document_root, :gfm, :server
 
-      def initialize(content, document_root, options = {})
-        @content = content
-        @document_root = document_root
+      def initialize(file, options = {})
+        @content = file.read
+        @document_root = File.dirname(File.expand_path(file.path))
         @gfm = options[:gfm] || false
+        @server = options[:server] || false
       end
 
       def to_html
@@ -22,6 +23,7 @@ module Octodown
       def context
         {
           :asset_root => 'https://assets-cdn.github.com/images/icons/',
+          :server => server,
           :original_document_root => document_root
         }
       end
