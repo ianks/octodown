@@ -56,18 +56,7 @@ module Octodown
       end
 
       def register_listener
-        require 'listen'
-
-        ::Listen.to(
-          path,
-          only:
-          Regexp.new(file.path),
-          &listener_callback
-        ).start
-      end
-
-      def listener_callback
-        proc do
+        Services::Riposter.call file do
           ws.send render_md
           puts "Reloading #{file.path}..."
         end
