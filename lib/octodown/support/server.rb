@@ -1,27 +1,43 @@
-require 'launchy'
-
 module Octodown
   module Support
     class Server
       DEFAULT_PORT = 8080
 
-      attr_reader :file, :path, :options, :port
+      attr_reader :file, :path, :options, :port, :ws
 
       def initialize(options = {})
-        require 'rack'
+        init_ws
 
         @file = ARGF.file
         @options = options
-        @path = File.dirname(File.expand_path(ARGF.path))
+        @path = File.dirname(File.expand_path(file.path))
         @port = options[:port] || DEFAULT_PORT
       end
 
       def start
+        register_listener
         yield self if block_given?
         Rack::Server.start(app: app, Port: port)
       end
 
       def call(env)
+        ::Faye::WebSocket.websocket?(env) ? render_ws(env) : render_http(env)
+      end
+
+      # Cascade through this app and Rack::File app.
+      # If Server returns 404, Rack::File will try to serve a static file.
+      def app
+        @app ||= Rack::Cascade.new([self, Rack::File.new(path)])
+      end
+
+      private
+
+      def render_ws(env)
+        @ws = ::Faye::WebSocket.new env
+        ws.rack_response
+      end
+
+      def render_http(env)
         res = Rack::Response.new
         res.headers['Content-Type'] = 'text/html'
 
@@ -34,25 +50,39 @@ module Octodown
         res.finish
       end
 
-      # Cascade through this app and Rack::File app.
-      # If Server returns 404, Rack::File will try to serve a static file.
-      def app
-        @app ||= Rack::Cascade.new([self, Rack::File.new(path)])
-      end
-
-      private
-
       # Render HTML body from Markdown
       def body
-        read_and_rewind file do
-          markdown = Renderer::GithubMarkdown.new(file, options).to_html
-          Renderer::HTML.new(markdown, options).render
+        Renderer::HTML.new(render_md, options).render
+      end
+
+      def register_listener
+        require 'listen'
+
+        ::Listen.to(
+          path,
+          only:
+          Regexp.new(file.path),
+          &listener_callback
+        ).start
+      end
+
+      def listener_callback
+        proc do
+          ws.send render_md
+          puts "Reloading #{file.path}..."
         end
       end
 
-      def read_and_rewind(file)
+      def render_md
         file.rewind unless file.pos == 0
-        yield if block_given?
+        Renderer::GithubMarkdown.new(file, options).to_html
+      end
+
+      def init_ws
+        require 'rack'
+        require 'faye/websocket'
+
+        Faye::WebSocket.load_adapter 'thin'
       end
     end
   end # Support
