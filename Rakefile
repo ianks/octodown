@@ -24,7 +24,7 @@ Distribution.configure do |config|
     'escape_utils-1.0.1',
     'charlock_holmes-0.7.3',
     'thin-1.6.3',
-    'eventmachine-1.0.7',
+    'eventmachine-1.0.6',
     'ffi-1.9.6'
   ]
 end
