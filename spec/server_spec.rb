@@ -23,6 +23,12 @@ describe Octodown::Support::Server do
     server.start
   end
 
+  it 'register the listener' do
+    allow(Rack::Server).to receive(:start).and_return true
+    expect(Octodown::Support::Services::Riposter).to receive(:call)
+    server.start
+  end
+
   it 'generates HTML for each request' do
     get '/'
 
@@ -51,6 +57,15 @@ describe Octodown::Support::Server do
     it 'serves in the specified port' do
       expect(Rack::Server).to receive(:start).with(app: app, Port: 4567)
       server.start
+    end
+  end
+
+  context 'with WebSocket request' do
+    it 'calls the WebSocket handler' do
+      allow(Faye::WebSocket).to receive(:websocket?).and_return true
+
+      expect(Faye::WebSocket).to receive(:new)
+      expect { get '/' }.to raise_exception
     end
   end
 end
