@@ -3,9 +3,10 @@ module Octodown
     module Services
       class DocumentPresenter
         def self.call(html_string, options)
-          if options[:raw]
+          case options[:presenter]
+          when :raw
             puts html_string
-          elsif options[:server]
+          when :server
             Server.new(options).start do |s|
               Launchy.open "http://localhost:#{s.port}"
             end

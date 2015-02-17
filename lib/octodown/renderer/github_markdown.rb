@@ -11,7 +11,7 @@ module Octodown
         @content = file.read
         @document_root = File.dirname(File.expand_path(file.path))
         @gfm = options[:gfm] || false
-        @server = options[:server] || false
+        @server = options[:presenter]  == :server
       end
 
       def to_html

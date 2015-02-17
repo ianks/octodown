@@ -22,8 +22,8 @@ OptionParser.new do |opts|
     options[:style] = s
   end
 
-  opts.on('-r', '--[no-]raw', 'Print raw HTML to STDOUT') do |r|
-    options[:raw] = r
+  opts.on('-r', '--[no-]raw', 'Print raw HTML to STDOUT') do
+    options[:presenter] = :raw
   end
 
   opts.on('-g', '--[no-]gfm', 'Use for non-README files (comments, etc)') do |g|
@@ -31,7 +31,7 @@ OptionParser.new do |opts|
   end
 
   opts.on('-S', '--server', 'Start a web server') do
-    options[:server] = true
+    options[:presenter] = :server
   end
 
   opts.on('-P', '--port [PORT]', 'Server port (default: ' \
