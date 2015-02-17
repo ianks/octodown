@@ -5,9 +5,17 @@
     <meta charset="utf-8">
     <title><%= title %></title>
     <link rel="shortcut icon" href="https://raw.githubusercontent.com/ianks/octodown/master/assets/favicon.png" type="image/png" />
-    <style><%= stylesheet %></style>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-    <script type="text/javascript"><%= script %></script>
+
+    <%= stylesheet %>
+    <%= vendor %>
+
+    <script type="text/javascript">
+      var socket = new WebSocket(<%= host %>);
+
+      socket.onmessage = function(event) {
+        $(".markdown-body").html(event.data)
+      };
+    </script>
   </head>
 
   <body>
