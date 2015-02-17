@@ -30,6 +30,16 @@ module Octodown
         File.read stylesheet_file
       end
 
+      def script
+        stylesheet_file = File.join(
+          Octodown.root,
+          'assets',
+          'script.js'
+        )
+
+        File.read stylesheet_file
+      end
+
       private
 
       def parent_dir
