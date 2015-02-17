@@ -29,8 +29,8 @@ primary goal to reproduce it as faithfully as possible.
 - Properly parses `STDIN`.
   - `cat README.md | octodown`
 
-  - Serves file with an HTTP server
-    - `octodown -S README.md`
+- Serves file with an HTTP server.
+  - `octodown --serve README.md`
 
 ## Installation
 
