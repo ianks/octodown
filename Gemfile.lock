@@ -11,6 +11,7 @@ PATH
       pygments.rb (~> 0.6.0)
       rack (~> 1.6.0)
       sanitize (~> 3.1.0)
+      thin (~> 1.6.3)
 
 GEM
   remote: https://rubygems.org/
@@ -27,8 +28,10 @@ GEM
       parser (>= 2.2.0.pre.3, < 3.0)
     charlock_holmes (0.7.3)
     crass (1.0.1)
+    daemons (1.1.9)
     diff-lcs (1.2.5)
     escape_utils (1.0.1)
+    eventmachine (1.0.7)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
     gemoji (2.1.0)
@@ -96,6 +99,10 @@ GEM
     sawyer (0.6.0)
       addressable (~> 2.3.5)
       faraday (~> 0.8, < 0.10)
+    thin (1.6.3)
+      daemons (~> 1.0, >= 1.0.9)
+      eventmachine (~> 1.0)
+      rack (~> 1.0)
     thread_safe (0.3.4)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
@@ -120,4 +127,5 @@ DEPENDENCIES
   rspec (~> 3.1.0)
   rubocop (~> 0.28.0)
   rugged (= 0.22.0b5)
+  thin (= 1.6.3)
   yajl-ruby (= 1.2.1)
