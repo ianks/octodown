@@ -1,9 +1,11 @@
+require 'launchy'
+
 module Octodown
   module Support
     class Server
       DEFAULT_PORT = 8080
 
-      attr_reader :file, :path, :options
+      attr_reader :file, :path, :options, :port
 
       def initialize(options = {})
         require 'rack'
@@ -11,9 +13,11 @@ module Octodown
         @file = ARGF.file
         @options = options
         @path = File.dirname(File.expand_path(ARGF.path))
+        @port = options[:port] || DEFAULT_PORT
       end
 
       def start
+        yield self if block_given?
         Rack::Server.start(app: app, Port: port)
       end
 
@@ -44,12 +48,6 @@ module Octodown
           markdown = Renderer::GithubMarkdown.new(file, options).to_html
           Renderer::HTML.new(markdown, options).render
         end
-      end
-
-      private
-
-      def port
-        @options[:port] || DEFAULT_PORT
       end
 
       def read_and_rewind(file)

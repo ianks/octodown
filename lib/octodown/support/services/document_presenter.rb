@@ -3,21 +3,15 @@ module Octodown
     module Services
       class DocumentPresenter
         def self.call(html_string, options)
-          new.browser_open do
-            if options[:raw]
-              puts html_string
-            elsif options[:server]
-              Server.new(options).start
-              'http://localhost:8080'
-            else
-              HTMLFile.create(html_string).path
+          if options[:raw]
+            puts html_string
+          elsif options[:server]
+            Server.new(options).start do |s|
+              Launchy.open "http://localhost:#{s.port}"
             end
+          else
+            Launchy.open HTMLFile.create(html_string).path
           end
-        end
-
-        def browser_open
-          dest = yield if block_given?
-          Launchy.open dest unless dest.nil?
         end
       end
     end
