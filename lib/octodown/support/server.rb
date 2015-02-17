@@ -38,16 +38,15 @@ module Octodown
       end
 
       def render_http(env)
-        res = Rack::Response.new
-        res.headers['Content-Type'] = 'text/html'
+        Rack::Response.new.tap do |res|
+          res.headers.merge 'Content-Type' => 'text/html'
+          res.status = valid_req?(env) ? 200 : 404
+          res.write(body) if valid_req? env
+        end.finish
+      end
 
-        if env['PATH_INFO'] == '/'
-          res.write(body) if env['REQUEST_METHOD'] == 'GET'
-        else
-          res.status = 404
-        end
-
-        res.finish
+      def valid_req?(env)
+        env['PATH_INFO'] == '/' && env['REQUEST_METHOD'] == 'GET'
       end
 
       # Render HTML body from Markdown
