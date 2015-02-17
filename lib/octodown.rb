@@ -4,6 +4,7 @@ require 'octodown/support/services/document_presenter'
 require 'octodown/support/services/riposter'
 require 'octodown/support/relative_root_filter'
 require 'octodown/support/html_file'
+require 'octodown/support/pdf_file'
 require 'octodown/support/server'
 require 'octodown/version'
 
