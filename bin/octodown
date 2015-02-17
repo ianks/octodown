@@ -22,6 +22,12 @@ OptionParser.new do |opts|
     options[:style] = s
   end
 
+  opts.on(
+    '-p', '--pdf', 'Generates a pdf file'
+  ) do
+    options[:presenter] = :pdf
+  end
+
   opts.on('-r', '--[no-]raw', 'Print raw HTML to STDOUT') do
     options[:presenter] = :raw
   end
