@@ -15,7 +15,7 @@ Distribution.configure do |config|
   config.package_name = 'octodown'
   config.version = Octodown::VERSION
   config.rb_version = '20150210-2.1.5'
-  config.packaging_dir = "#{Octodown.root}/packaging"
+  config.packaging_dir = File.expand_path 'packaging'
   config.native_extensions = [
     'rugged-0.21.4',
     'posix-spawn-0.3.9',
