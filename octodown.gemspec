@@ -26,6 +26,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'launchy',             '~> 2.4.3'
   spec.add_dependency 'rack',                '~> 1.6.0'
   spec.add_dependency 'thin',                '~> 1.6.3'
+  spec.add_dependency 'listen',              '~> 2.8.5'
+  spec.add_dependency 'faye-websocket',      '~> 0.9.2'
   spec.add_dependency 'pdfkit',              '~> 0.6.2'
 
   spec.add_development_dependency 'rspec',     '~> 3.1.0'

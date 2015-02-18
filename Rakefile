@@ -22,7 +22,10 @@ Distribution.configure do |config|
     'nokogumbo-1.3.0',
     'github-markdown-0.6.8',
     'escape_utils-1.0.1',
-    'charlock_holmes-0.7.3'
+    'charlock_holmes-0.7.3',
+    'thin-1.6.3',
+    'eventmachine-1.0.6',
+    'ffi-1.9.6'
   ]
 end
 

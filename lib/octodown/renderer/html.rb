@@ -3,15 +3,17 @@ require 'erb'
 module Octodown
   module Renderer
     class HTML
-      attr_reader :rendered_markdown, :style
+      attr_reader :rendered_markdown, :style, :port, :filepath
 
       def initialize(rendered_markdown, options)
         @rendered_markdown = rendered_markdown
         @style = options[:style] || 'github'
+        @port = options[:port] || Octodown::Support::Server::DEFAULT_PORT
+        @filepath = File.join parent_dir, 'template', 'octodown.html.erb'
       end
 
       def render
-        template_text = File.read template_filepath
+        template_text = File.read filepath
         erb_template = ERB.new template_text
         erb_template.result binding
       end
@@ -21,24 +23,32 @@ module Octodown
       end
 
       def stylesheet
-        stylesheet_file = File.join(
-          Octodown.root,
-          'assets',
-          "#{style}.css"
-        )
+        tagger assets_dir("#{style}.css"), 'style'
+      end
 
-        File.read stylesheet_file
+      def vendor
+        Dir[assets_dir('vendor', '*.js')].reduce '' do |a, e|
+          a << tagger(e, 'script')
+        end
+      end
+
+      def host
+        "ws://localhost:#{port}".dump
       end
 
       private
 
+      def tagger(name, tag)
+        "<#{tag}>#{File.read name}</#{tag}>"
+      end
+
+      def assets_dir(*args)
+        File.join Octodown.root, 'assets', args
+      end
+
       def parent_dir
         current_file = File.dirname __FILE__
         File.expand_path '..', current_file
-      end
-
-      def template_filepath
-        File.join parent_dir, 'template', 'octodown.html.erb'
       end
     end
   end
