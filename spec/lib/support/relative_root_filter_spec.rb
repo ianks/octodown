@@ -1,17 +1,19 @@
-require 'tempfile'
-
 describe Octodown::Support::RelativeRootFilter do
+  let(:_http_uri?) do
+    -> (uri) { subject.send :http_uri?, uri }
+  end
+
   subject { Octodown::Support::RelativeRootFilter.new nil }
 
   # Testing private methods because Nokogirl is a black box
   it 'detects an non-HTTP/HTTPS URI correctly' do
-    expect(subject.send(:http_uri?, 'assets/test.png')).to eq false
-    expect(subject.send(:http_uri?, '#array#bsearch-vs-array')).to eq false
+    expect(_http_uri?['assets/test.png']).to eq false
+    expect(_http_uri?['#array#bsearch-vs-array']).to eq false
   end
 
   it 'detects HTTP/HTTPS URI correctly' do
-    expect(subject.send(:http_uri?, 'http://foo.com/asset/test.png')).to eq true
-    expect(subject.send(:http_uri?, 'https://foo.com/aset/test.png')).to eq true
+    expect(_http_uri?['http://foo.com/asset/test.png']).to eq true
+    expect(_http_uri?['https://foo.com/aset/test.png']).to eq true
   end
 
   it 'renders the relative root correctly' do

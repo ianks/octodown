@@ -1,21 +1,17 @@
-require 'tempfile'
+include Octodown
 
-describe Octodown::Renderer::HTML do
-  let(:options) { { style: 'github' } }
+describe Renderer::HTML do
   let(:html) do
-    Octodown::Renderer::GithubMarkdown.new(File.new(dummy_path)).to_html
+    Renderer::GithubMarkdown.new(File.new(dummy_path)).to_html
   end
 
-  subject { Octodown::Renderer::HTML.new(html, options).content }
+  subject { Renderer::HTML.new(html, opts).content }
 
   before { allow(Octodown).to receive(:root) { '.' } }
 
   it 'includes HTML from markdown rendering phase' do
     expect(subject).to include '<h1>Hello world!</h1>'
     expect(subject).to include 'highlight-ruby'
-    expect(subject).to include(
-      '<p>You are now reading markdown. How lucky you are!</p>'
-    )
   end
 
   it 'sets the title' do

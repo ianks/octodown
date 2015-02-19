@@ -8,10 +8,9 @@ RSpec.configure do |config|
 
   config.default_formatter = 'doc' if config.files_to_run.one?
   config.order = :random
+  config.include Rack::Test::Methods
 
   Kernel.srand config.seed
-
-  config.include Rack::Test::Methods
 
   def dummy_path
     File.expand_path File.join(Dir.pwd, 'spec', 'support', 'test.md')
