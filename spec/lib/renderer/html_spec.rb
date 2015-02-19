@@ -1,26 +1,15 @@
-require 'tempfile'
+include Octodown
 
-def assets_dir(*args)
-  File.join Octodown.root, 'assets', args
-end
+describe Renderer::HTML do
+  let(:html) { Renderer::GithubMarkdown.render File.new(dummy_path) }
 
-describe Octodown::Renderer::HTML do
-  let(:dummy_path) { File.join(File.dirname(__FILE__), 'dummy', 'test.md') }
-  let(:options) { { style: 'github' } }
-  let(:html) do
-    Octodown::Renderer::GithubMarkdown.new(File.new(dummy_path)).to_html
-  end
-
-  subject { Octodown::Renderer::HTML.new(html, options).render }
+  subject { Renderer::HTML.new(html, opts).content }
 
   before { allow(Octodown).to receive(:root) { '.' } }
 
   it 'includes HTML from markdown rendering phase' do
     expect(subject).to include '<h1>Hello world!</h1>'
     expect(subject).to include 'highlight-ruby'
-    expect(subject).to include(
-      '<p>You are now reading markdown. How lucky you are!</p>'
-    )
   end
 
   it 'sets the title' do

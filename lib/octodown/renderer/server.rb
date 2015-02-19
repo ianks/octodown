@@ -1,23 +1,30 @@
 module Octodown
-  module Support
+  module Renderer
     class Server
-      DEFAULT_PORT = 8080
-
       attr_reader :file, :path, :options, :port, :ws
 
-      def initialize(options = {})
+      def initialize(_content, options = {})
         init_ws
 
         @file = ARGF.file
         @options = options
         @path = File.dirname(File.expand_path(file.path))
-        @port = options[:port] || DEFAULT_PORT
+        @port = options[:port]
       end
 
-      def start
+      def present
         register_listener
-        yield self if block_given?
-        Rack::Server.start(app: app, Port: port)
+
+        # We need to make sure the server has started before opening the
+        # page in a browser. I hate relying on time here, but I can't think
+        # of cleaner way currently.
+        Thread.new do |t|
+          sleep 1
+          Launchy.open "http://localhost:#{port}"
+          t.exit
+        end
+
+        Rack::Server.start app: app, Port: port
       end
 
       def call(env)
@@ -51,11 +58,11 @@ module Octodown
 
       # Render HTML body from Markdown
       def body
-        Renderer::HTML.new(render_md, options).render
+        HTML.render render_md, options
       end
 
       def register_listener
-        Services::Riposter.call file do
+        Octodown::Support::Services::Riposter.call file do
           ws.send render_md
           puts "Reloading #{file.path}..."
         end
@@ -63,7 +70,7 @@ module Octodown
 
       def render_md
         file.rewind unless file.pos == 0
-        Renderer::GithubMarkdown.new(file, options).to_html
+        Renderer::GithubMarkdown.render file, options
       end
 
       def init_ws

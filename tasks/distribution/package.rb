@@ -1,5 +1,4 @@
 require 'fileutils'
-require 'octodown'
 require 'forwardable'
 
 Dir[File.join(Dir.pwd, 'tasks', '**', '*.rb')].each { |f| require f }
@@ -9,7 +8,7 @@ module Distribution
     extend Forwardable
     include PackageHelpers
 
-    attr_reader :config, :dir, :tarball, :package, :arch
+    attr_reader :config, :dir, :tarball, :package, :arch, :root
 
     def_delegators :@config, :version, :rb_version, :package_name,
                    :packaging_dir, :native_extensions
@@ -21,6 +20,7 @@ module Distribution
       @config = ::Distribution.configuration
       @dir = "#{package_name}-#{version}-#{arch}"
       @package = self
+      @root = File.expand_path '.'
     end
 
     def self.create(args)
@@ -41,7 +41,7 @@ module Distribution
     private
 
     def clean_dir
-      FileUtils.cd Octodown.root do
+      FileUtils.cd root do
         FileUtils.remove_dir(dir, true) if Dir.exist? dir
       end
     end
@@ -76,7 +76,7 @@ module Distribution
     def initialize_install_dir
       clean_dir
 
-      FileUtils.cd Octodown.root do
+      FileUtils.cd root do
         FileUtils.mkdir_p "#{dir}/lib/app"
       end
     end

@@ -3,9 +3,9 @@ require 'fileutils'
 
 module Octodown
   module Support
-    class HTMLFile < Tempfile
-      def self.create(content)
-        document = new ['octodown', '.html']
+    class PersistentTempfile < Tempfile
+      def self.create(content, ext)
+        document = new ['octodown', ".#{ext}"]
         document.persistent_write content
       end
 

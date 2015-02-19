@@ -1,13 +1,10 @@
-require 'rack/test'
-require 'octodown'
+include Octodown::Renderer
 
-describe Octodown::Support::Server do
-  include Rack::Test::Methods
-
-  let(:dummy_path) { File.join(File.dirname(__FILE__), 'dummy', 'test.md') }
+describe Server do
   let(:content) { File.read dummy_path }
-  let(:server) { Octodown::Support::Server.new }
-  let(:app) { server.app }
+  let(:app) { subject.app }
+
+  subject { Server.new content, opts }
 
   before do
     object_double(
@@ -20,13 +17,15 @@ describe Octodown::Support::Server do
 
   it 'serves a Rack app' do
     expect(Rack::Server).to receive(:start)
-    server.start
+
+    subject.present
   end
 
   it 'register the listener' do
     allow(Rack::Server).to receive(:start).and_return true
-    expect(Octodown::Support::Services::Riposter).to receive(:call)
-    server.start
+    expect(Octodown::Support::Services::Riposter).to receive :call
+
+    subject.present
   end
 
   it 'generates HTML for each request' do
@@ -50,13 +49,13 @@ describe Octodown::Support::Server do
   end
 
   context 'with option :port' do
-    let(:server) do
-      Octodown::Support::Server.new port: 4567
+    subject do
+      Server.new content, port: 4567
     end
 
     it 'serves in the specified port' do
-      expect(Rack::Server).to receive(:start).with(app: app, Port: 4567)
-      server.start
+      expect(Rack::Server).to receive(:start).with app: app, Port: 4567
+      subject.present
     end
   end
 

@@ -2,16 +2,15 @@ module Octodown
   module Support
     module Services
       class DocumentPresenter
-        def self.call(html_string, options)
+        def self.call(file, options)
+          include Octodown::Renderer
+
           case options[:presenter]
-          when :server
-            Server.new(options).start do |s|
-              Launchy.open "http://localhost:#{s.port}"
-            end
-          when :raw then puts html_string
-          when :pdf then Launchy.open PDFFile.create(html_string).path
-          else Launchy.open HTMLFile.create(html_string).path
-          end
+          when :raw    then Raw
+          when :pdf    then PDF
+          when :html   then HTML
+          when :server then Server
+          end.new(GithubMarkdown.render(file, options), options).present
         end
       end
     end
