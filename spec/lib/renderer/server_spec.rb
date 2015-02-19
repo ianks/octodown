@@ -1,10 +1,6 @@
-require 'rack/test'
 require 'octodown'
 
 describe Octodown::Renderer::Server do
-  include Rack::Test::Methods
-
-  let(:dummy_path) { File.expand_path './spec/dummy/test.md' }
   let(:content) { File.read dummy_path }
   let(:app) { subject.app }
 

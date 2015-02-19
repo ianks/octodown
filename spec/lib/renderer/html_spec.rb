@@ -1,11 +1,6 @@
 require 'tempfile'
 
-def assets_dir(*args)
-  File.join Octodown.root, 'assets', args
-end
-
 describe Octodown::Renderer::HTML do
-  let(:dummy_path) { File.join(File.dirname(__FILE__), 'dummy', 'test.md') }
   let(:options) { { style: 'github' } }
   let(:html) do
     Octodown::Renderer::GithubMarkdown.new(File.new(dummy_path)).to_html
