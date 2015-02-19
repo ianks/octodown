@@ -24,4 +24,13 @@ RSpec.configure do |config|
   def assets_dir(*args)
     File.join Octodown.root, 'assets', args
   end
+
+  def opts
+    {
+      gfm: false,
+      port: 8080,
+      presenter: :html,
+      style: :github
+    }
+  end
 end
