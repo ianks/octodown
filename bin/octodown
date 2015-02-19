@@ -6,7 +6,11 @@ require 'launchy'
 
 include Octodown
 
-options = {}
+# Default options
+options = {
+  presenter: :html,
+  style: :github
+}
 
 OptionParser.new do |opts|
   opts.banner = 'Usage: octodown [options]'
