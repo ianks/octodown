@@ -4,8 +4,7 @@
 [![Build Status](https://travis-ci.org/ianks/octodown.svg)](https://travis-ci.org/ianks/octodown)
 
 Ever wanted to easily preview what your markdown would look like _exactly_ on
-Github? Ever wanted to do that from inside of a Terminal? Well this Gem is for
-you. Dead simple. Never get caught writing ugly markdown again.
+Github? Ever wanted to do that from inside of a Terminal?
 
 Octodown uses the same parsers and CSS that Github uses for their markdown
 rendering. Github markdown styling looks beautiful, so it is Octodown's
@@ -17,20 +16,23 @@ primary goal to reproduce it as faithfully as possible.
 
 ## Features
 
+- :new: Edit your markdown like a boss with LiveReload.
+  - `octodown --live-reload README.md`
+
+- :new: Render your markdown as PDF.
+  - `octodown --pdf README.md`
+
 - Uses the same markdown parsers and CSS as Github for true duplication.
   - Yes emojis _are_ included. :smiling_imp:
 
 - Fast. `octodown` uses native parsers to ensure performance.
 - Multiple CSS styles.
   - `octodown --style atom README.md`
-  - The `--github` markdown (default)
-  - The `--atom` text editor markdown
+  - The `github` markdown (default)
+  - The `atom` text editor markdown
 
 - Properly parses `STDIN`.
   - `cat README.md | octodown`
-
-- Serves file with an HTTP server.
-  - `octodown --serve README.md`
 
 ## Installation
 
@@ -49,7 +51,7 @@ primary goal to reproduce it as faithfully as possible.
 
     ```viml
     " Use octodown as default build command for Markdown files
-    autocmd FileType markdown let b:dispatch = 'octodown %'
+    autocmd FileType markdown let b:dispatch = 'octodown --live-reload %'
     ```
   - Caveat: make sure you follow the directions on the Dispatch README.md and
     make sure that the correct version of Ruby (the one which as Octodown
@@ -66,8 +68,8 @@ primary goal to reproduce it as faithfully as possible.
 1. *nix lovers:
   - `echo '# Hello world!' | octodown --raw > index.html`
 
-  4. Live preview at `http://localhost:4567`:
-    - `octodown README.md --server --port 4567`
+1. LiveReload at `http://localhost:4567`:
+  - `octodown README.md --live-reload --port 4567`
 
 ## Notes
 

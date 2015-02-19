@@ -32,20 +32,20 @@ OptionParser.new do |opts|
     options[:presenter] = :pdf
   end
 
-  opts.on '-r', '--[no-]raw', 'Print raw HTML to STDOUT'  do
+  opts.on '-r', '--raw', 'Print raw HTML to STDOUT'  do
     options[:presenter] = :raw
   end
 
-  opts.on '-g', '--[no-]gfm', 'Use for non-README files (comments, etc)' do |g|
+  opts.on '-g', '--gfm', 'Use for non-README files (comments, etc)' do |g|
     options[:gfm] = g
   end
 
-  opts.on '-S', '--server', 'Start a web server' do
+  opts.on '-l', '--live-reload', 'Start a LiveReload server' do
     options[:presenter] = :server
   end
 
   opts.on(
-    '-P', '--port [PORT]', "Server port (default: #{options[:port]})"
+    '-P', '--port [PORT]', "LiveReload port (default: #{options[:port]})"
   ) do |port|
     options[:presenter] = :server
     options[:port] = port.to_i
