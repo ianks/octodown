@@ -4,8 +4,7 @@
 [![Build Status](https://travis-ci.org/ianks/octodown.svg)](https://travis-ci.org/ianks/octodown)
 
 Ever wanted to easily preview what your markdown would look like _exactly_ on
-Github? Ever wanted to do that from inside of a Terminal? Well this Gem is for
-you. Dead simple. Never get caught writing ugly markdown again.
+Github? Ever wanted to do that from inside of a Terminal?
 
 Octodown uses the same parsers and CSS that Github uses for their markdown
 rendering. Github markdown styling looks beautiful, so it is Octodown's
@@ -17,20 +16,20 @@ primary goal to reproduce it as faithfully as possible.
 
 ## Features
 
+- Edit your markdown like a boss with LiveReload.
+  - `octodown --serve README.md`
+
 - Uses the same markdown parsers and CSS as Github for true duplication.
   - Yes emojis _are_ included. :smiling_imp:
 
 - Fast. `octodown` uses native parsers to ensure performance.
 - Multiple CSS styles.
   - `octodown --style atom README.md`
-  - The `--github` markdown (default)
-  - The `--atom` text editor markdown
+  - The `github` markdown (default)
+  - The `atom` text editor markdown
 
 - Properly parses `STDIN`.
   - `cat README.md | octodown`
-
-- Serves file with an HTTP server.
-  - `octodown --serve README.md`
 
 ## Installation
 
