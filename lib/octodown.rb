@@ -1,3 +1,4 @@
+require 'octodown/renderer/renderable'
 require 'octodown/support/persistent_tempfile'
 require 'octodown/renderer/github_markdown'
 require 'octodown/renderer/html'

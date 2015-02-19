@@ -58,7 +58,7 @@ module Octodown
 
       # Render HTML body from Markdown
       def body
-        HTML.new(render_md, options).content
+        HTML.render render_md, options
       end
 
       def register_listener
@@ -70,7 +70,7 @@ module Octodown
 
       def render_md
         file.rewind unless file.pos == 0
-        Renderer::GithubMarkdown.new(file, options).to_html
+        Renderer::GithubMarkdown.render file, options
       end
 
       def init_ws

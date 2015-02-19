@@ -1,22 +1,24 @@
 require 'github/markup'
 require 'pygments'
 require 'html/pipeline'
+require 'octodown/renderer/renderable'
 
 module Octodown
   module Renderer
     class GithubMarkdown
       include HTML
+      include Renderable
 
-      attr_reader :content, :document_root, :options
+      attr_reader :content, :document_root, :options, :file
 
       def initialize(file, options = {})
-        @content = file.read
+        @file = file
         @document_root = File.dirname File.expand_path(file.path)
         @options = options
       end
 
-      def to_html
-        pipeline.call(content)[:output].to_s
+      def content
+        pipeline.call(file.read)[:output].to_s
       end
 
       private

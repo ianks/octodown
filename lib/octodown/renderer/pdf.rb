@@ -1,7 +1,10 @@
+require 'octodown/renderer/renderable'
+
 module Octodown
   module Renderer
     class PDF
       include Octodown::Support
+      include Renderable
 
       attr_reader :content
 

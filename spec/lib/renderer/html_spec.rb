@@ -1,9 +1,7 @@
 include Octodown
 
 describe Renderer::HTML do
-  let(:html) do
-    Renderer::GithubMarkdown.new(File.new(dummy_path)).to_html
-  end
+  let(:html) { Renderer::GithubMarkdown.render File.new(dummy_path) }
 
   subject { Renderer::HTML.new(html, opts).content }
 

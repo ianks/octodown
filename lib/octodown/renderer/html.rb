@@ -1,9 +1,11 @@
 require 'erb'
+require 'octodown/renderer/renderable'
 
 module Octodown
   module Renderer
     class HTML
       include Octodown::Support
+      include Renderable
 
       attr_reader :rendered_markdown, :filepath, :options
 

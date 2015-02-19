@@ -1,7 +1,7 @@
 include Octodown::Renderer
 
 describe GithubMarkdown do
-  subject { GithubMarkdown.new(dummy_file).to_html }
+  subject { GithubMarkdown.render dummy_file  }
 
   it 'create HTML from markdown file' do
     expect(subject).to include '<h1>Hello world!</h1>'
@@ -14,10 +14,10 @@ describe GithubMarkdown do
   describe 'when :gfm option is set' do
     let :md_factory do
       lambda do |params|
-        GithubMarkdown.new(
+        GithubMarkdown.render(
           dummy_file,
           opts.merge(gfm: params[:gfm])
-        ).to_html
+        )
       end
     end
 
