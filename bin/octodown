@@ -8,6 +8,8 @@ include Octodown
 
 # Default options
 options = {
+  gfm: false,
+  port: 8080,
   presenter: :html,
   style: :github
 }
@@ -15,7 +17,7 @@ options = {
 OptionParser.new do |opts|
   opts.banner = 'Usage: octodown [options]'
 
-  opts.on_tail('--version', 'Show version') do
+  opts.on_tail '--version', 'Show version' do
     puts "octodown v#{Octodown::VERSION}"
     exit
   end
@@ -26,31 +28,30 @@ OptionParser.new do |opts|
     options[:style] = s
   end
 
-  opts.on(
-    '-p', '--pdf', 'Generates a pdf file'
-  ) do
+  opts.on '-p', '--pdf', 'Generates a pdf file' do
     options[:presenter] = :pdf
   end
 
-  opts.on('-r', '--[no-]raw', 'Print raw HTML to STDOUT') do
+  opts.on '-r', '--[no-]raw', 'Print raw HTML to STDOUT'  do
     options[:presenter] = :raw
   end
 
-  opts.on('-g', '--[no-]gfm', 'Use for non-README files (comments, etc)') do |g|
+  opts.on '-g', '--[no-]gfm', 'Use for non-README files (comments, etc)' do |g|
     options[:gfm] = g
   end
 
-  opts.on('-S', '--server', 'Start a web server') do
+  opts.on '-S', '--server', 'Start a web server' do
     options[:presenter] = :server
   end
 
-  opts.on('-P', '--port [PORT]', 'Server port (default: ' \
-          "#{Octodown::Renderer::Server::DEFAULT_PORT})") do |port|
-    options[:server] = true
+  opts.on(
+    '-P', '--port [PORT]', "Server port (default: #{options[:port]})"
+  ) do |port|
+    options[:presenter] = :server
     options[:port] = port.to_i
   end
 
-  opts.on_tail('-h', '--help', 'Show this message') do
+  opts.on_tail '-h', '--help', 'Show this message' do
     puts opts
     exit
   end
