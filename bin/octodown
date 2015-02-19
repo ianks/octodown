@@ -45,7 +45,7 @@ OptionParser.new do |opts|
   end
 
   opts.on('-P', '--port [PORT]', 'Server port (default: ' \
-          "#{Octodown::Support::Server::DEFAULT_PORT})") do |port|
+          "#{Octodown::Renderer::Server::DEFAULT_PORT})") do |port|
     options[:server] = true
     options[:port] = port.to_i
   end

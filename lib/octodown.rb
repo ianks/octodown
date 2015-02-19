@@ -1,21 +1,19 @@
+require 'octodown/support/persistent_tempfile'
 require 'octodown/renderer/github_markdown'
 require 'octodown/renderer/html'
+require 'octodown/renderer/pdf'
+require 'octodown/renderer/raw'
+require 'octodown/renderer/server'
+require 'octodown/support/relative_root_filter'
 require 'octodown/support/services/document_presenter'
 require 'octodown/support/services/riposter'
-require 'octodown/support/relative_root_filter'
-require 'octodown/support/html_file'
-require 'octodown/support/pdf_file'
-require 'octodown/support/server'
 require 'octodown/version'
 
 module Octodown
   def self.call(options)
     include Octodown::Support::Services
 
-    rendered_markdown = Renderer::GithubMarkdown.new(ARGF.file, options).to_html
-    html_string = Renderer::HTML.new(rendered_markdown, options).render
-
-    DocumentPresenter.call html_string, options
+    DocumentPresenter.call ARGF.file, options
   end
 
   def self.root

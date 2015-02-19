@@ -11,7 +11,7 @@ describe Octodown::Renderer::HTML do
     Octodown::Renderer::GithubMarkdown.new(File.new(dummy_path)).to_html
   end
 
-  subject { Octodown::Renderer::HTML.new(html, options).render }
+  subject { Octodown::Renderer::HTML.new(html, options).content }
 
   before { allow(Octodown).to receive(:root) { '.' } }
 

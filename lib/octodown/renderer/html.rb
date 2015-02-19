@@ -3,16 +3,18 @@ require 'erb'
 module Octodown
   module Renderer
     class HTML
+      include Octodown::Support
+
       attr_reader :rendered_markdown, :style, :port, :filepath
 
       def initialize(rendered_markdown, options)
         @rendered_markdown = rendered_markdown
         @style = options[:style] || 'github'
-        @port = options[:port] || Octodown::Support::Server::DEFAULT_PORT
+        @port = options[:port] || Server::DEFAULT_PORT
         @filepath = File.join parent_dir, 'template', 'octodown.html.erb'
       end
 
-      def render
+      def content
         template_text = File.read filepath
         erb_template = ERB.new template_text
         erb_template.result binding
@@ -34,6 +36,10 @@ module Octodown
 
       def host
         "ws://localhost:#{port}".dump
+      end
+
+      def present
+        Launchy.open PersistentTempfile.create(content, :html).path
       end
 
       private
