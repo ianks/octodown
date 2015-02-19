@@ -1,6 +1,6 @@
 describe Octodown::Support::RelativeRootFilter do
   let(:_http_uri?) do
-    -> (uri) { subject.send :http_uri?, uri }
+    lambda { |uri| subject.send :http_uri?, uri }
   end
 
   subject { Octodown::Support::RelativeRootFilter.new nil }
