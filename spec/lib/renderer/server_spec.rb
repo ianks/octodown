@@ -1,10 +1,10 @@
-require 'octodown'
+include Octodown::Renderer
 
-describe Octodown::Renderer::Server do
+describe Server do
   let(:content) { File.read dummy_path }
   let(:app) { subject.app }
 
-  subject { Octodown::Renderer::Server.new content }
+  subject { Server.new content, opts }
 
   before do
     object_double(
@@ -50,7 +50,7 @@ describe Octodown::Renderer::Server do
 
   context 'with option :port' do
     subject do
-      Octodown::Renderer::Server.new content, port: 4567
+      Server.new content, port: 4567
     end
 
     it 'serves in the specified port' do
