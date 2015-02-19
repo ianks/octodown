@@ -5,13 +5,14 @@ require 'html/pipeline'
 module Octodown
   module Renderer
     class GithubMarkdown
-      attr_reader :content, :document_root, :gfm, :server
+      include HTML
+
+      attr_reader :content, :document_root, :options
 
       def initialize(file, options = {})
         @content = file.read
-        @document_root = File.dirname(File.expand_path(file.path))
-        @gfm = options[:gfm] || false
-        @server = options[:presenter]  == :server
+        @document_root = File.dirname File.expand_path(file.path)
+        @options = options
       end
 
       def to_html
@@ -22,22 +23,22 @@ module Octodown
 
       def context
         {
-          :asset_root => 'https://assets-cdn.github.com/images/icons/',
-          :server => server,
-          :original_document_root => document_root
+          asset_root: 'https://assets-cdn.github.com/images/icons/',
+          server: options[:presenter]  == :server,
+          original_document_root: document_root
         }
       end
 
       def pipeline
-        ::HTML::Pipeline.new [
-          ::HTML::Pipeline::MarkdownFilter,
-          ::Octodown::Support::RelativeRootFilter,
-          ::HTML::Pipeline::SanitizationFilter,
-          ::HTML::Pipeline::ImageMaxWidthFilter,
-          ::HTML::Pipeline::MentionFilter,
-          ::HTML::Pipeline::EmojiFilter,
-          ::HTML::Pipeline::SyntaxHighlightFilter
-        ], context.merge(:gfm => gfm)
+        Pipeline.new [
+          Pipeline::MarkdownFilter,
+          Support::RelativeRootFilter,
+          Pipeline::SanitizationFilter,
+          Pipeline::ImageMaxWidthFilter,
+          Pipeline::MentionFilter,
+          Pipeline::EmojiFilter,
+          Pipeline::SyntaxHighlightFilter
+        ], context.merge(gfm: options[:gfm])
       end
     end
   end
