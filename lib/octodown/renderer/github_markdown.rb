@@ -24,7 +24,7 @@ module Octodown
       def context
         {
           asset_root: 'https://assets-cdn.github.com/images/icons/',
-          server: options[:presenter]  == :server,
+          server: options[:presenter] == :server,
           original_document_root: document_root
         }
       end

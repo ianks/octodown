@@ -1,8 +1,6 @@
 module Octodown
   module Renderer
     class Server
-      DEFAULT_PORT = 8080
-
       attr_reader :file, :path, :options, :port, :ws
 
       def initialize(_content, options = {})
@@ -11,7 +9,7 @@ module Octodown
         @file = ARGF.file
         @options = options
         @path = File.dirname(File.expand_path(file.path))
-        @port = options[:port] || DEFAULT_PORT
+        @port = options[:port]
       end
 
       def present

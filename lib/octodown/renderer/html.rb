@@ -5,12 +5,11 @@ module Octodown
     class HTML
       include Octodown::Support
 
-      attr_reader :rendered_markdown, :style, :port, :filepath
+      attr_reader :rendered_markdown, :filepath, :options
 
-      def initialize(rendered_markdown, options)
+      def initialize(rendered_markdown, options = {})
         @rendered_markdown = rendered_markdown
-        @style = options[:style] || 'github'
-        @port = options[:port] || Server::DEFAULT_PORT
+        @options = options
         @filepath = File.join parent_dir, 'template', 'octodown.html.erb'
       end
 
@@ -25,7 +24,7 @@ module Octodown
       end
 
       def stylesheet
-        tagger assets_dir("#{style}.css"), 'style'
+        tagger assets_dir("#{options[:style]}.css"), :style
       end
 
       def vendor
@@ -35,7 +34,7 @@ module Octodown
       end
 
       def host
-        "ws://localhost:#{port}".dump
+        "ws://localhost:#{options[:port]}".dump
       end
 
       def present
