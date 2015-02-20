@@ -63,7 +63,10 @@ module Octodown
 
       def register_listener
         Octodown::Support::Services::Riposter.call file do
-          ws.send render_md
+          md = render_md
+          ws.on(:open) { ws.send md }
+          ws.send md
+
           puts "Reloading #{file.path}..."
         end
       end
