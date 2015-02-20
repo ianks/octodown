@@ -33,4 +33,9 @@ namespace :distribution do
       Package.create 'osx'
     end
   end
+
+  desc 'Generate release notes'
+  task :release_notes do
+    puts ReleaseNotes.new.content
+  end
 end

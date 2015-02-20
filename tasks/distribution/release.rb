@@ -1,5 +1,6 @@
 Dir[File.join(Dir.pwd, 'tasks', '**', '*.rb')].each { |f| require f }
 
+require 'digest'
 require 'octokit'
 require 'pathname'
 
@@ -27,7 +28,8 @@ module Distribution
       github.create_release(
         'ianks/octodown',
         "v#{version}",
-        name: "v#{version}"
+        name: "v#{version}",
+        body: ReleaseNotes.new.content
       )
     end
 
