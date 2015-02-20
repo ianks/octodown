@@ -9,11 +9,10 @@ module Octodown
       include HTML
       include Renderable
 
-      attr_reader :content, :document_root, :options, :file
+      attr_reader :content, :options, :file
 
       def initialize(file, options = {})
         @file = file
-        @document_root = File.dirname File.expand_path(file.path)
         @options = options
       end
 
@@ -41,6 +40,13 @@ module Octodown
           Pipeline::EmojiFilter,
           Pipeline::SyntaxHighlightFilter
         ], context.merge(gfm: options[:gfm])
+      end
+
+      def document_root
+        case file
+        when STDIN then Dir.pwd
+        else File.dirname File.expand_path(file.path)
+        end
       end
     end
   end

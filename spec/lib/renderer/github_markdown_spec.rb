@@ -11,6 +11,12 @@ describe GithubMarkdown do
     expect(subject).to include 'highlight-ruby'
   end
 
+  it 'properly recognizes stdin' do
+    allow(STDIN).to receive(:read).and_return 'Mic check... 1, 2, 3.'
+
+    expect(GithubMarkdown.render(STDIN)).to include 'Mic check... 1, 2, 3.'
+  end
+
   describe 'when :gfm option is set' do
     let :md_factory do
       lambda do |params|
