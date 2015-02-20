@@ -29,8 +29,7 @@ module Distribution
 
     def build
       initialize_install_dir
-      download_octodown
-      remove_unneccesary_files
+      copy_octodown
       install_ruby_and_gems
       create_executable
       post_cleanup
@@ -66,13 +65,6 @@ module Distribution
       TravellingRuby.install self
     end
 
-    def remove_unneccesary_files
-      FileUtils.cd "#{dir}/lib/app" do
-        FileUtils.remove_dir '.git', true
-        FileUtils.remove_dir 'spec', true
-      end
-    end
-
     def initialize_install_dir
       clean_dir
 
@@ -81,15 +73,12 @@ module Distribution
       end
     end
 
-    def download_octodown
-      print_to_console 'Downloading octodown...'
-      tar = "v#{version}.tar.gz"
+    def copy_octodown
+      print_to_console 'Copying octodown...'
 
-      FileUtils.cd "#{dir}/lib/app" do
-        curl "https://github.com/ianks/octodown/archive/#{tar}"
-        system "tar --strip-components=1 -xzf #{tar} " \
-          '&> /dev/null'
-        FileUtils.rm tar if File.exist? tar
+      %w(octodown.gemspec Gemfile Gemfile.lock LICENSE.txt lib assets bin)
+        .each do |folder|
+        FileUtils.cp_r File.join(root, folder), "#{dir}/lib/app"
       end
     end
   end

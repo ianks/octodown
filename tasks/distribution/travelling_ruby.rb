@@ -11,12 +11,12 @@ module Distribution
     end
 
     def self.install(package)
-      travelling_ruby = new package
-      travelling_ruby.download_runtime
-      travelling_ruby.extract_to_folder
-      travelling_ruby.install_gems
-      travelling_ruby.install_native_extensions
-      travelling_ruby.cleanup_files
+      new(package)
+        .tap(&:download_runtime)
+        .tap(&:extract_to_folder)
+        .tap(&:install_gems)
+        .tap(&:install_native_extensions)
+        .tap(&:cleanup_files)
     end
 
     def install_gems
@@ -27,7 +27,7 @@ module Distribution
           system(
             'BUNDLE_IGNORE_CONFIG=1 bundle install ' \
             '--path vendor --without development --jobs 2 ' \
-            '&> /dev/null'
+            '--quiet'
           )
         end
       end
