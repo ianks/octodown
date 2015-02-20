@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    octodown (1.1.0)
+    octodown (1.1.1)
       faye-websocket (~> 0.9.2)
       gemoji (~> 2.1.0)
       github-linguist (~> 4.2.5)
