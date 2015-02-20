@@ -3,6 +3,12 @@ include Distribution
 desc 'Upload tarballs to GitHub'
 task :upload do
   ['upload:linux:x86', 'upload:linux:x86_64', 'upload:osx'].each do |task|
+    begin
+      Release.create Package.new('osx')
+    rescue
+      puts 'Release already uploaded, continuing...'
+    end
+
     fork do
       Rake::Task[task].invoke
       exit

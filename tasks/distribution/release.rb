@@ -20,7 +20,6 @@ module Distribution
     def self.create(tarball)
       release = new(tarball)
       release.create_new_release
-      release.upload_asset
     end
 
     def create_new_release
@@ -41,7 +40,7 @@ module Distribution
 
     def find_upload_url
       Octokit.releases('ianks/octodown').find do |n|
-        n.tag_name == version
+        n.tag_name == "v#{version}"
       end[:url]
     end
   end
