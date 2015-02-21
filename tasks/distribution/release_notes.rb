@@ -2,15 +2,15 @@ Dir[File.join(Dir.pwd, 'tasks', '**', '*.rb')].each { |f| require f }
 
 require 'digest'
 require 'erb'
+require 'octokit'
 
 module Distribution
   class ReleaseNotes
-    extend Forwardable
-
-    attr_reader :version, :content
+    attr_reader :version, :content, :github
 
     def initialize
       @version = `git tag | tail -1`.strip
+      @github = Octokit::Client.new access_token: ENV['OCTODOWN_TOKEN']
       @content = render_template
     end
 
@@ -24,16 +24,30 @@ module Distribution
 
     # Show our committers
     def committers
-      prev_tag = `git tag | tail -2 | head -1`.strip
-      `git log #{prev_tag}.. --format="%aN"`
-        .split("\n")
-        .uniq
-        .sort
-        .map { |str| "- #{str}" }
+      committer_logins_for(contributor_emails)
+        .map { |str| "- @#{str}" }
         .join "\n"
     end
 
-    # Generate text for shasums
+    def contributor_emails
+      `git log #{prev_release}.. --format="%aE"`
+        .split("\n")
+        .uniq
+    end
+
+    def committer_logins_for(emails)
+      emails.map do |email|
+        github.search_users("#{email} in:email")
+          .items
+          .first
+          .login
+      end
+    end
+
+    def prev_release
+      `git tag | tail -2 | head -1`.strip
+    end
+
     def shasums
       Dir['distro/*'].reduce '' do |a, e|
         [].tap do |arr|
