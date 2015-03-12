@@ -38,7 +38,7 @@ primary goal to reproduce it as faithfully as possible.
 
 1. Install `icu4c` and `cmake`:
   - Mac: `brew install icu4c cmake pkg-config`
-  - Apt: `sudo apt-get install -y libicu-dev cmake pkg-config`
+  - Apt: `sudo apt-get install -y libicu-dev cmake pkg-config ruby-dev`
 
 1. Install octodown:
   - If you have a non-system Ruby (_highly recommended_):  `gem install
