@@ -76,7 +76,7 @@ module Distribution
     def copy_octodown
       print_to_console 'Copying octodown...'
 
-      %w(octodown.gemspec Gemfile Gemfile.lock LICENSE.txt lib assets bin)
+      %w(octodown.gemspec Gemfile LICENSE.txt lib assets bin)
         .each do |folder|
         FileUtils.cp_r File.join(root, folder), "#{dir}/lib/app"
       end

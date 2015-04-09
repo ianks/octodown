@@ -22,12 +22,13 @@ module Distribution
     def install_gems
       print_to_console 'Installing Gems...'
 
+      FileUtils.cp 'packaging/Gemfile.lock', "#{package.dir}/lib/app"
+
       Bundler.with_clean_env do
         FileUtils.cd "#{package.dir}/lib/app" do
           system(
             'BUNDLE_IGNORE_CONFIG=1 bundle install ' \
-            '--path vendor --without development --jobs 2 ' \
-            '--quiet'
+            '--path vendor --without development --jobs 2 --quiet'
           )
         end
       end
