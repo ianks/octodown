@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.license       = 'MIT'
 
   spec.files         = Dir['{lib,assets,bin}/**/*']
-  spec.executables   << 'octodown'
+  spec.executables << 'octodown'
   spec.require_paths = ['lib']
 
   spec.add_dependency 'github-markup',       '~> 1.3.1'
