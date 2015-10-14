@@ -11,4 +11,5 @@ def some_code()
 end
 ```
 
+<a name="anchor"></a>
 [some-file](test.txt)

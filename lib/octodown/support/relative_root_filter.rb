@@ -10,7 +10,7 @@ module Octodown
         @server = context[:server]
 
         filter_images doc.search('img')
-        filter_links doc.search('a')
+        filter_links doc.search('a[href]')
       end
 
       private
