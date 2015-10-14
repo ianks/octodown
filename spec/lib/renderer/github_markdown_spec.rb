@@ -1,7 +1,7 @@
 include Octodown::Renderer
 
 describe GithubMarkdown do
-  subject { GithubMarkdown.render dummy_file  }
+  subject { GithubMarkdown.render dummy_file }
 
   it 'create HTML from markdown file' do
     expect(subject).to include '<h1>Hello world!</h1>'

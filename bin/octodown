@@ -32,7 +32,7 @@ OptionParser.new do |opts|
     options[:presenter] = :pdf
   end
 
-  opts.on '-r', '--raw', 'Print raw HTML to STDOUT'  do
+  opts.on '-r', '--raw', 'Print raw HTML to STDOUT' do
     options[:presenter] = :raw
   end
 

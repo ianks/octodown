@@ -38,7 +38,7 @@ module Octodown
           Pipeline::ImageMaxWidthFilter,
           Pipeline::MentionFilter,
           Pipeline::EmojiFilter,
-          Pipeline::RougeFilter,
+          Pipeline::RougeFilter
         ], context.merge(gfm: options[:gfm])
       end
 
