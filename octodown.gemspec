@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.license               = 'MIT'
   spec.required_ruby_version = '>= 2.0'
 
-  spec.files         = Dir['{lib,assets,bin}/**/*']
+  spec.files = Dir['{lib,assets,bin}/**/*']
   spec.executables << 'octodown'
   spec.require_paths = ['lib']
 
