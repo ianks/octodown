@@ -1,4 +1,5 @@
 include Octodown::Renderer
+class Dud < StandardError; end
 
 describe Server do
   let(:content) { File.read dummy_path }
@@ -64,7 +65,7 @@ describe Server do
       allow(Faye::WebSocket).to receive(:websocket?).and_return true
 
       expect(Faye::WebSocket).to receive(:new)
-      expect { get '/' }.to raise_exception
+      expect { get '/' }.to raise_error StandardError
     end
   end
 end
