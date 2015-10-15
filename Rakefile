@@ -17,15 +17,14 @@ Distribution.configure do |config|
   config.rb_version = '20150210-2.1.5'
   config.packaging_dir = File.expand_path 'packaging'
   config.native_extensions = [
-    'rugged-0.21.4',
-    'posix-spawn-0.3.9',
-    'nokogumbo-1.3.0',
-    'github-markdown-0.6.8',
-    'escape_utils-1.0.1',
+    'rugged-0.24.0b0',
+    'nokogumbo-1.4.1',
+    'github-markdown-0.6.9',
+    'escape_utils-1.1.0',
     'charlock_holmes-0.7.3',
-    'thin-1.6.3',
-    'eventmachine-1.0.6',
-    'ffi-1.9.6'
+    'thin-1.6.4',
+    'eventmachine-1.0.8',
+    'ffi-1.9.10'
   ]
 end
 
