@@ -1,13 +1,14 @@
 language: ruby
 
 before_install:
-    - gem update --system
-    - sudo apt-get install -y libicu-dev build-essential
+  - gem install bundler
+  - gem update --system
+  - sudo apt-get install -y libicu-dev build-essential
 
 script:
   - bundle exec rake
 
 rvm:
-  - '2.2.0'
+  - '2.2.4'
   - '2.1.5'
   - '2.0.0'
