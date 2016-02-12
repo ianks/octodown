@@ -34,7 +34,6 @@ module Octodown
         Pipeline.new [
           Pipeline::MarkdownFilter,
           Support::RelativeRootFilter,
-          Pipeline::SanitizationFilter,
           Pipeline::ImageMaxWidthFilter,
           Pipeline::MentionFilter,
           Pipeline::EmojiFilter,

@@ -19,9 +19,6 @@ primary goal to reproduce it as faithfully as possible.
 - :new: Edit your markdown like a boss with LiveReload.
   - `octodown --live-reload README.md`
 
-- :new: Render your markdown as PDF.
-  - `octodown --pdf README.md`
-
 - Uses the same markdown parsers and CSS as Github for true duplication.
   - Yes emojis _are_ included. :smiling_imp:
 

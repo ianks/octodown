@@ -20,7 +20,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'github-markup',              '~> 1.4.0'
   spec.add_dependency 'github-linguist',            '~> 4.6.4'
   spec.add_dependency 'html-pipeline',              '~> 2.2.1'
-  spec.add_dependency 'sanitize',                   '~> 4.0.0'
   spec.add_dependency 'github-markdown',            '~> 0.6.8'
   spec.add_dependency 'gemoji',                     '~> 2.1.0'
   spec.add_dependency 'html-pipeline-rouge_filter', '~> 1.0.2'
@@ -29,7 +28,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'thin',                       '~> 1.6.4'
   spec.add_dependency 'listen',                     '~> 3.0.3'
   spec.add_dependency 'faye-websocket',             '~> 0.10.0'
-  spec.add_dependency 'pdfkit',                     '~> 0.8.2'
 
   spec.add_development_dependency 'rspec',     '~> 3.3.0'
   spec.add_development_dependency 'rubocop',   '~> 0.34.2'

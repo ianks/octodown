@@ -14,12 +14,10 @@ end
 
 def deps
   {
-    'markdown-preview' =>
-      'markdown-preview/master/styles/markdown-preview.less',
+    'markdown-preview-default' =>
+      'markdown-preview/master/styles/markdown-preview-default.less',
     'syntax-variables' =>
-      'template-syntax/master/stylesheets/syntax-variables.less',
-    'colors' =>
-      'template-syntax/master/stylesheets/colors.less'
+      'atom/master/static/variables/syntax-variables.less'
   }
 end
 
@@ -38,7 +36,7 @@ end
 def compile_less
   tmp = 'tmp/github.css'
   out_file = 'assets/atom.css'
-  `lessc tmp/markdown-preview.less #{tmp}`
+  `lessc tmp/markdown-preview-default.less > #{tmp}`
 
   File.open out_file, 'w' do |file|
     css = File.read(tmp).gsub(/markdown-preview/, 'markdown-body')
