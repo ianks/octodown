@@ -7,7 +7,6 @@ module Octodown
 
           case options[:presenter]
           when :raw    then Raw
-          when :pdf    then PDF
           when :html   then HTML
           when :server then Server
           end.new(GithubMarkdown.render(file, options), options).present
