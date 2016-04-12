@@ -18,8 +18,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'github-markup',              '~> 1.4.0'
-  spec.add_dependency 'github-linguist',            '~> 4.6.4'
-  spec.add_dependency 'html-pipeline',              '~> 2.2.1'
+  spec.add_dependency 'github-linguist',            '~> 4.8.2'
+  spec.add_dependency 'html-pipeline',              '~> 2.4.0'
   spec.add_dependency 'github-markdown',            '~> 0.6.8'
   spec.add_dependency 'gemoji',                     '~> 2.1.0'
   spec.add_dependency 'html-pipeline-rouge_filter', '~> 1.0.2'

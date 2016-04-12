@@ -21,6 +21,11 @@ describe Renderer::HTML do
     expect(subject).to include css
   end
 
+  it 'injects higlighting CSS' do
+    css = File.read assets_dir('highlight.css')
+    expect(subject).to include css
+  end
+
   it 'includes jQuery' do
     jquery = File.read assets_dir('vendor', 'jquery-2.1.3.min.js')
     expect(subject).to include jquery
