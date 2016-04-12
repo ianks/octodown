@@ -7,7 +7,13 @@ module Octodown
 
           path = File.dirname(File.expand_path(file.path))
           regex = Regexp.new(file.path)
-          Listen.to(path, only: regex, &listener_callback).start
+
+          @listener ||= Listen.to(path, only: regex) do
+            puts "Reloading #{file.path}..."
+            listener_callback.call
+          end
+
+          @listener.start
         end
       end
     end
