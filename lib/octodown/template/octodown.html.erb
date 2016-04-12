@@ -9,13 +9,36 @@
     <%= highlight_stylesheet %>
     <%= stylesheet %>
 
-    <script type="text/javascript">
-      var socket = new WebSocket(<%= host %>);
+    <script type='text/javascript'>
+      'use strict';
 
-      socket.onmessage = function(event) {
-        document.querySelector('article.markdown-body').innerHTML = event.data;
-      };
+      document.addEventListener("DOMContentLoaded", function() {
+        var ws = null;
+        var interval = 2500;
+
+        function start() {
+          ws = new WebSocket(<%= host %>);
+
+          ws.onmessage = function(event) {
+            var body =  document.querySelector('article.markdown-body');
+            if (body) body.innerHTML = event.data;
+          };
+
+          ws.onclose = function() {
+            check();
+          };
+        }
+
+        function check(){
+          if(ws.readyState == 3) start();
+        }
+
+        start();
+
+        setInterval(check, interval);
+      });
     </script>
+
   </head>
 
   <body>

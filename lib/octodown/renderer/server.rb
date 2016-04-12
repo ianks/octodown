@@ -1,7 +1,7 @@
 module Octodown
   module Renderer
     class Server
-      attr_reader :file, :path, :options, :port, :ws
+      attr_reader :file, :path, :options, :port
 
       def initialize(_content, options = {})
         init_ws
@@ -10,6 +10,7 @@ module Octodown
         @options = options
         @path = File.dirname(File.expand_path(file.path))
         @port = options[:port]
+        @websockets = []
       end
 
       def present
@@ -19,8 +20,8 @@ module Octodown
         # page in a browser. I hate relying on time here, but I can't think
         # of cleaner way currently.
         Thread.new do |t|
-          sleep 1
-          Launchy.open "http://localhost:#{port}"
+          sleep 2.5
+          Launchy.open "http://localhost:#{port}" if @websockets.empty?
           t.exit
         end
 
@@ -40,8 +41,21 @@ module Octodown
       private
 
       def render_ws(env)
-        @ws = ::Faye::WebSocket.new env
-        ws.rack_response
+        md = render_md(file)
+
+        socket = ::Faye::WebSocket.new(env)
+
+        socket.on(:open) do
+          socket.send md
+          puts "Clients: #{@websockets.size}" if ENV['DEBUG']
+        end
+        socket.on(:close) do
+          @websockets = @websockets.select { |s| s != socket }
+          puts "Clients: #{@websockets.size}" if ENV['DEBUG']
+        end
+
+        @websockets << socket
+        socket.rack_response
       end
 
       def render_http(env)
@@ -64,8 +78,9 @@ module Octodown
       def register_listener
         Octodown::Support::Services::Riposter.call file do
           md = render_md(file)
-          ws.on(:open) { ws.send md }
-          ws.send md
+          @websockets.each do |socket|
+            socket.send md
+          end
         end
       end
 
