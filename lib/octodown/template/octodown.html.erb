@@ -8,13 +8,12 @@
 
     <%= highlight_stylesheet %>
     <%= stylesheet %>
-    <%= vendor %>
 
     <script type="text/javascript">
       var socket = new WebSocket(<%= host %>);
 
       socket.onmessage = function(event) {
-        $(".markdown-body").html(event.data)
+        document.querySelector('article.markdown-body').innerHTML = event.data;
       };
     </script>
   </head>

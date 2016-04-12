@@ -26,9 +26,8 @@ describe Renderer::HTML do
     expect(subject).to include css
   end
 
-  it 'includes jQuery' do
-    jquery = File.read assets_dir('vendor', 'jquery-2.1.3.min.js')
-    expect(subject).to include jquery
+  it 'does not include jQuery lol' do
+    expect(subject).not_to include 'jquery'
   end
 
   it 'includes correct websocket address in js' do

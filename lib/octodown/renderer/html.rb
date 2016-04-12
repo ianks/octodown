@@ -34,12 +34,6 @@ module Octodown
         inject_html_node_with_file_content assets_dir('highlight.css'), :style
       end
 
-      def vendor
-        Dir[assets_dir('vendor', '*.js')].reduce '' do |a, e|
-          a << inject_html_node_with_file_content(e, 'script')
-        end
-      end
-
       def host
         "ws://localhost:#{options[:port]}".dump
       end
