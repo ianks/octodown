@@ -58,22 +58,20 @@ module Octodown
 
       # Render HTML body from Markdown
       def body
-        HTML.render render_md, options
+        HTML.render render_md(file), options
       end
 
       def register_listener
         Octodown::Support::Services::Riposter.call file do
-          md = render_md
+          md = render_md(file)
           ws.on(:open) { ws.send md }
           ws.send md
-
-          puts "Reloading #{file.path}..."
         end
       end
 
-      def render_md
-        file.rewind unless file.pos == 0
-        Renderer::GithubMarkdown.render file, options
+      def render_md(f)
+        f.rewind unless f.pos == 0
+        Renderer::GithubMarkdown.render f, options
       end
 
       def init_ws
