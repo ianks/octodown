@@ -40,6 +40,7 @@ module Octodown
 
       private
 
+      # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
       def render_ws(env)
         md = render_md(file)
 
@@ -49,6 +50,7 @@ module Octodown
           socket.send md
           puts "Clients: #{@websockets.size}" if ENV['DEBUG']
         end
+
         socket.on(:close) do
           @websockets = @websockets.select { |s| s != socket }
           puts "Clients: #{@websockets.size}" if ENV['DEBUG']
@@ -57,6 +59,7 @@ module Octodown
         @websockets << socket
         socket.rack_response
       end
+      # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
       def render_http(env)
         Rack::Response.new.tap do |res|
