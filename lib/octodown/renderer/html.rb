@@ -26,13 +26,12 @@ module Octodown
       end
 
       def stylesheet
-        tagger assets_dir("#{options[:style]}.css"), :style
+        stylesheet = "#{options[:style]}.css"
+        inject_html_node_with_file_content assets_dir(stylesheet), :style
       end
 
-      def vendor
-        Dir[assets_dir('vendor', '*.js')].reduce '' do |a, e|
-          a << tagger(e, 'script')
-        end
+      def highlight_stylesheet
+        inject_html_node_with_file_content assets_dir('highlight.css'), :style
       end
 
       def host
@@ -45,7 +44,7 @@ module Octodown
 
       private
 
-      def tagger(name, tag)
+      def inject_html_node_with_file_content(name, tag)
         "<#{tag}>#{File.read name}</#{tag}>"
       end
 
