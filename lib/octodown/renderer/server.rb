@@ -1,3 +1,5 @@
+require 'thread'
+
 module Octodown
   module Renderer
     class Server
@@ -11,21 +13,32 @@ module Octodown
         @path = File.dirname(File.expand_path(file.path))
         @port = options[:port]
         @websockets = []
+        @already_opened = false
+        @mutex = Mutex.new
       end
 
       def present
         register_listener
 
-        # We need to make sure the server has started before opening the
-        # page in a browser. I hate relying on time here, but I can't think
-        # of cleaner way currently.
-        Thread.new do |t|
-          sleep 2.5
-          Launchy.open "http://localhost:#{port}" if @websockets.empty?
-          t.exit
+        Thread.abort_on_exception = true
+        Thread.new do
+          maybe_launch_browser
+          Thread.exit
         end
 
         Rack::Server.start app: app, Port: port
+      end
+
+      def maybe_launch_browser
+        sleep 2.5
+
+        @mutex.synchronize do
+          if @already_opened == false
+            @already_opened = true
+            puts '[INFO] Loading preview in a new browser tab'
+            Launchy.open "http://localhost:#{port}"
+          end
+        end
       end
 
       def call(env)
@@ -47,6 +60,14 @@ module Octodown
         socket = ::Faye::WebSocket.new(env)
 
         socket.on(:open) do
+          @mutex.synchronize do
+            if @already_opened == false
+              puts '[INFO] Re-using octodown client from previous browser tab'
+            end
+
+            @already_opened = true
+          end
+
           socket.send md
           puts "Clients: #{@websockets.size}" if ENV['DEBUG']
         end
@@ -80,6 +101,7 @@ module Octodown
 
       def register_listener
         Octodown::Support::Services::Riposter.call file do
+          puts '[INFO] Recompiling markdown...'
           md = render_md(file)
           @websockets.each do |socket|
             socket.send md
