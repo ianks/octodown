@@ -1,4 +1,9 @@
+require 'faye/websocket'
+require 'puma'
+require 'rack'
+require 'rack/handler/puma'
 require 'thread'
+require 'launchy'
 
 module Octodown
   module Renderer
@@ -6,8 +11,6 @@ module Octodown
       attr_reader :file, :path, :options, :port
 
       def initialize(_content, options = {})
-        init_ws
-
         @file = ARGF.file
         @options = options
         @path = File.dirname(File.expand_path(file.path))
@@ -20,16 +23,23 @@ module Octodown
       def present
         register_listener
 
-        Thread.abort_on_exception = true
         Thread.new do
+          Thread.abort_on_exception = true
           maybe_launch_browser
           Thread.exit
         end
 
-        Rack::Server.start app: app, Port: port
+        boot_server
+      end
+
+      def boot_server
+        puts "[INFO] Server running on http://localhost:#{port}"
+        Rack::Handler::Puma.run app, Host: 'localhost', Port: port, Silent: true
       end
 
       def maybe_launch_browser
+        return if ENV['TEST']
+
         sleep 2.5
 
         @mutex.synchronize do
@@ -112,13 +122,6 @@ module Octodown
       def render_md(f)
         f.rewind unless f.pos == 0
         Renderer::GithubMarkdown.render f, options
-      end
-
-      def init_ws
-        require 'rack'
-        require 'faye/websocket'
-
-        Faye::WebSocket.load_adapter 'thin'
       end
     end
   end # Support
