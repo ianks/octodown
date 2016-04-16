@@ -22,8 +22,6 @@ Distribution.configure do |config|
     'github-markdown-0.6.9',
     'escape_utils-1.1.0',
     'charlock_holmes-0.7.3',
-    'thin-1.6.4',
-    'eventmachine-1.0.8',
     'ffi-1.9.10'
   ]
 end

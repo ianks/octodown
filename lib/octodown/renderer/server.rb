@@ -1,31 +1,54 @@
+require 'faye/websocket'
+require 'puma'
+require 'rack'
+require 'rack/handler/puma'
+require 'thread'
+require 'launchy'
+
 module Octodown
   module Renderer
     class Server
       attr_reader :file, :path, :options, :port
 
       def initialize(_content, options = {})
-        init_ws
-
         @file = ARGF.file
         @options = options
         @path = File.dirname(File.expand_path(file.path))
         @port = options[:port]
         @websockets = []
+        @already_opened = false
+        @mutex = Mutex.new
       end
 
       def present
         register_listener
 
-        # We need to make sure the server has started before opening the
-        # page in a browser. I hate relying on time here, but I can't think
-        # of cleaner way currently.
-        Thread.new do |t|
-          sleep 2.5
-          Launchy.open "http://localhost:#{port}" if @websockets.empty?
-          t.exit
+        Thread.new do
+          Thread.abort_on_exception = true
+          maybe_launch_browser
+          Thread.exit
         end
 
-        Rack::Server.start app: app, Port: port
+        boot_server
+      end
+
+      def boot_server
+        puts "[INFO] Server running on http://localhost:#{port}"
+        Rack::Handler::Puma.run app, Host: 'localhost', Port: port, Silent: true
+      end
+
+      def maybe_launch_browser
+        return if ENV['TEST']
+
+        sleep 2.5
+
+        @mutex.synchronize do
+          if @already_opened == false
+            @already_opened = true
+            puts '[INFO] Loading preview in a new browser tab'
+            Launchy.open "http://localhost:#{port}"
+          end
+        end
       end
 
       def call(env)
@@ -47,6 +70,14 @@ module Octodown
         socket = ::Faye::WebSocket.new(env)
 
         socket.on(:open) do
+          @mutex.synchronize do
+            if @already_opened == false
+              puts '[INFO] Re-using octodown client from previous browser tab'
+            end
+
+            @already_opened = true
+          end
+
           socket.send md
           puts "Clients: #{@websockets.size}" if ENV['DEBUG']
         end
@@ -80,6 +111,7 @@ module Octodown
 
       def register_listener
         Octodown::Support::Services::Riposter.call file do
+          puts '[INFO] Recompiling markdown...'
           md = render_md(file)
           @websockets.each do |socket|
             socket.send md
@@ -90,13 +122,6 @@ module Octodown
       def render_md(f)
         f.rewind unless f.pos == 0
         Renderer::GithubMarkdown.render f, options
-      end
-
-      def init_ws
-        require 'rack'
-        require 'faye/websocket'
-
-        Faye::WebSocket.load_adapter 'thin'
       end
     end
   end # Support

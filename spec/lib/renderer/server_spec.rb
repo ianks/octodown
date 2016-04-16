@@ -1,3 +1,5 @@
+require 'faye/websocket'
+
 include Octodown::Renderer
 class Dud < StandardError; end
 
@@ -14,16 +16,19 @@ describe Server do
       read: content,
       file: File.new(dummy_path)
     ).as_stubbed_const
+
+    allow_any_instance_of(Server).to receive(:maybe_launch_browser)
+      .and_return true
   end
 
   it 'serves a Rack app' do
-    expect(Rack::Server).to receive(:start)
+    expect(Rack::Handler::Puma).to receive(:run)
 
     subject.present
   end
 
   it 'register the listener' do
-    allow(Rack::Server).to receive(:start).and_return true
+    allow(Rack::Handler::Puma).to receive(:run).and_return true
     expect(Octodown::Support::Services::Riposter).to receive :call
 
     subject.present
@@ -55,7 +60,8 @@ describe Server do
     end
 
     it 'serves in the specified port' do
-      expect(Rack::Server).to receive(:start).with app: app, Port: 4567
+      expect(Rack::Handler::Puma).to receive(:run)
+        .with app, Port: 4567, Host: 'localhost', Silent: true
       subject.present
     end
   end

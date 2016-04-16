@@ -15,7 +15,7 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 
   def dummy_path
-    File.expand_path File.join(Dir.pwd, 'spec', 'support', 'test.md')
+    File.join(__dir__, 'support', 'test.md')
   end
 
   def dummy_file
