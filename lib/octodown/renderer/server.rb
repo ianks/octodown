@@ -120,8 +120,14 @@ module Octodown
       end
 
       def render_md(f)
-        f.rewind unless f.pos == 0
-        Renderer::GithubMarkdown.render f, options
+        begin
+          file_to_render = File.new(f.path, 'r')
+          f.close
+        rescue Errno::ENOENT
+          puts '[WARN] failed to read changes'
+          return
+        end
+        Renderer::GithubMarkdown.render file_to_render, options
       end
     end
   end # Support
