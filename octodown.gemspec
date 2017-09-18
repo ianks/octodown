@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rack',                       '~> 1.6.4'
   spec.add_dependency 'listen',                     '~> 3.0.3'
   spec.add_dependency 'faye-websocket',             '~> 0.10.0'
-  spec.add_dependency 'puma',                       '~> 3.4.0'
+  spec.add_dependency 'puma',                       '~> 3.10.0'
 
   spec.add_development_dependency 'rspec',     '~> 3.3.0'
   spec.add_development_dependency 'rubocop',   '~> 0.34.2'
