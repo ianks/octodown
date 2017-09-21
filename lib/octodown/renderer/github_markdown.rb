@@ -17,7 +17,14 @@ module Octodown
       end
 
       def content
-        pipeline.call(file.read)[:output].to_s
+        if file == STDIN
+          buffer = file.read
+        else
+          File.open(file.path, 'r') do |f|
+            buffer = f.read
+          end
+        end
+        pipeline.call(buffer)[:output].to_s
       end
 
       private
