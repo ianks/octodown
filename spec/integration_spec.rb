@@ -8,7 +8,7 @@ describe 'Integration' do
       octodown = File.join(__dir__, '..', 'bin', 'octodown')
       exec "TEST=1 bundle exec #{octodown} --live-reload #{dummy_path}"
     end
-    sleep 2
+    sleep 5
   end
 
   after :all do
