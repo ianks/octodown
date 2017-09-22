@@ -20,11 +20,13 @@ module Octodown
         if file == STDIN
           buffer = file.read
         else
-          File.open(file.path, 'r') do |f|
-            buffer = f.read
+          begin
+            File.open(file.path, 'r') { |f| buffer = f.read }
+          rescue Errno::ENOENT
+            puts '[WARN] something went wrong when trying to open the file'
           end
         end
-        pipeline.call(buffer)[:output].to_s
+        pipeline.call(buffer ||= 'could not read changes')[:output].to_s
       end
 
       private
