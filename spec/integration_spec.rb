@@ -2,6 +2,7 @@ require 'net/http'
 require 'faye/websocket'
 require 'eventmachine'
 
+# rubocop:disable Metrics/BlockLength
 describe 'Integration' do
   before :all do
     @pid = fork do

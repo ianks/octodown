@@ -83,7 +83,7 @@ module Octodown
         end
 
         socket.on(:close) do
-          @websockets = @websockets.select { |s| s != socket }
+          @websockets = @websockets.reject { |s| s == socket }
           puts "Clients: #{@websockets.size}" if ENV['DEBUG']
         end
 

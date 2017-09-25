@@ -22,7 +22,7 @@ module Octodown
       def http_uri?(src)
         parsed_uri = begin
           URI.parse src
-        rescue
+        rescue URI::InvalidURIError
           src
         end
 

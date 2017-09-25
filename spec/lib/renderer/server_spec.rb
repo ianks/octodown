@@ -3,6 +3,7 @@ require 'faye/websocket'
 include Octodown::Renderer
 class Dud < StandardError; end
 
+# rubocop:disable Metrics/BlockLength
 describe Server do
   let(:content) { File.read dummy_path }
   let(:app) { subject.app }

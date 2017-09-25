@@ -26,4 +26,4 @@ Distribution.configure do |config|
   ]
 end
 
-task :default => [:spec, :rubocop]
+task :default => %i[spec rubocop]
