@@ -10,7 +10,11 @@ script:
   - bundle exec rake
 
 rvm:
-  - '2.3.0'
-  - '2.2.4'
-  - '2.1.5'
-  - '2.0.0'
+  - '2.2.7'
+  - '2.3.4'
+  - '2.4.1'
+
+matrix:
+  fast_finish: true
+  allow_failures:
+  - rvm: '2.2.7'
