@@ -9,7 +9,7 @@ module Octodown
       include HTML
       include Renderable
 
-      attr_reader :content, :options, :file
+      attr_reader :options, :file
 
       def initialize(file, options = {})
         @file = file

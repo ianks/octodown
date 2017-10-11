@@ -1,5 +1,6 @@
 include Octodown::Renderer
 
+# rubocop:disable Metrics/BlockLength
 describe GithubMarkdown do
   subject { GithubMarkdown.render dummy_file }
 

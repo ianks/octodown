@@ -1,9 +1,10 @@
 include Distribution
 
+# rubocop:disable Metrics/BlockLength
 namespace :distribution do
   desc 'Package octodown into self-contained programs'
   task :package do
-    %w(linux:x86 linux:x86_64 osx).each do |task|
+    %w[linux:x86 linux:x86_64 osx].each do |task|
       fork do
         Rake::Task["distribution:package:#{task}"].invoke
         exit

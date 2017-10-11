@@ -14,6 +14,7 @@ options = {
   style: :github
 }
 
+# rubocop:disable Metrics/BlockLength
 OptionParser.new do |opts|
   opts.banner = 'Usage: octodown [options]'
 
@@ -23,7 +24,7 @@ OptionParser.new do |opts|
   end
 
   opts.on(
-    '-s', '--style [STYLE]', [:github, :atom], 'Choose style (atom, github)'
+    '-s', '--style [STYLE]', %i[github atom], 'Choose style (atom, github)'
   ) do |s|
     options[:style] = s
   end

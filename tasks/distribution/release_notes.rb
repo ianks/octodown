@@ -38,9 +38,9 @@ module Distribution
     def committer_logins_for(emails)
       emails.map do |email|
         github.search_users("#{email} in:email")
-          .items
-          .first
-          .login
+              .items
+              .first
+              .login
       end
     end
 
