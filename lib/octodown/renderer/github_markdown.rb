@@ -1,6 +1,7 @@
 require 'github/markup'
 require 'html/pipeline'
 require 'html/pipeline/rouge_filter'
+require 'task_list/filter'
 require 'octodown/renderer/renderable'
 
 module Octodown
@@ -46,7 +47,8 @@ module Octodown
           Pipeline::ImageMaxWidthFilter,
           Pipeline::MentionFilter,
           Pipeline::EmojiFilter,
-          Pipeline::RougeFilter
+          Pipeline::RougeFilter,
+          TaskList::Filter
         ], context.merge(gfm: options[:gfm])
       end
 

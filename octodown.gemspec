@@ -24,6 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'commonmarker',               '~> 0.14'
   spec.add_dependency 'gemoji',                     '~> 3.0'
   spec.add_dependency 'html-pipeline-rouge_filter', '~> 1.0', '>= 1.0.2'
+  spec.add_dependency 'deckar01-task_list',         '~> 2.0'
   spec.add_dependency 'launchy',                    '~> 2.4', '>= 2.4.3'
   spec.add_dependency 'rack',                       '~> 2.0'
   spec.add_dependency 'listen',                     '~> 3.1'
