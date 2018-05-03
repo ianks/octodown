@@ -63,7 +63,7 @@ module Octodown
 
       private
 
-      # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+      # rubocop:disable Metrics/MethodLength
       def render_ws(env)
         md = render_md(file)
 
@@ -90,7 +90,7 @@ module Octodown
         @websockets << socket
         socket.rack_response
       end
-      # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+      # rubocop:enable Metrics/MethodLength
 
       def render_http(env)
         Rack::Response.new.tap do |res|

@@ -1,4 +1,4 @@
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path('lib', __dir__)
 
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'octodown/version'
@@ -18,23 +18,21 @@ Gem::Specification.new do |spec|
   spec.executables << 'octodown'
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'github-markup',              '~> 1.4'
-  spec.add_dependency 'github-linguist',            '~> 5.0'
-  spec.add_dependency 'html-pipeline',              '~> 2.6'
-  spec.add_dependency 'commonmarker',               '~> 0.14'
-  spec.add_dependency 'gemoji',                     '~> 3.0'
-  spec.add_dependency 'html-pipeline-rouge_filter', '~> 1.0', '>= 1.0.2'
+  spec.add_dependency 'commonmarker',               '~> 0.17'
   spec.add_dependency 'deckar01-task_list',         '~> 2.0'
-  spec.add_dependency 'launchy',                    '~> 2.4', '>= 2.4.3'
-  spec.add_dependency 'rack',                       '~> 2.0'
-  spec.add_dependency 'listen',                     '~> 3.1'
   spec.add_dependency 'faye-websocket',             '~> 0.10'
+  spec.add_dependency 'gemoji',                     '~> 2.0'
+  spec.add_dependency 'html-pipeline',              '~> 2.7.2'
+  spec.add_dependency 'launchy',                    '~> 2.4', '>= 2.4.3'
+  spec.add_dependency 'listen',                     '~> 3.1'
   spec.add_dependency 'puma',                       '~> 3.7'
+  spec.add_dependency 'rack',                       '~> 2.0'
+  spec.add_dependency 'rouge',                      '~> 3.1'
 
-  spec.add_development_dependency 'rspec',     '~> 3.3'
-  spec.add_development_dependency 'rubocop',   '~> 0.34', '>= 0.34.2'
-  spec.add_development_dependency 'bundler',   '~> 1.7'
-  spec.add_development_dependency 'rake',      '~> 12.1'
-  spec.add_development_dependency 'rack-test', '~> 0.6', '>= 0.6.3'
+  spec.add_development_dependency 'bundler', '~> 1.7'
   spec.add_development_dependency 'octokit'
+  spec.add_development_dependency 'rack-test', '~> 1.0'
+  spec.add_development_dependency 'rake', '~> 12.1'
+  spec.add_development_dependency 'rspec', '~> 3.3'
+  spec.add_development_dependency 'rubocop', '~> 0.34', '>= 0.34.2'
 end

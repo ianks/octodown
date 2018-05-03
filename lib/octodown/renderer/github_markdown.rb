@@ -1,6 +1,6 @@
-require 'github/markup'
+require 'rouge'
 require 'html/pipeline'
-require 'html/pipeline/rouge_filter'
+require_relative './../../html/pipeline/syntax_hightlight_filter'
 require 'task_list/filter'
 require 'octodown/renderer/renderable'
 
@@ -36,20 +36,21 @@ module Octodown
         {
           asset_root: 'https://assets-cdn.github.com/images/icons/',
           server: options[:presenter] == :server,
-          original_document_root: document_root
+          original_document_root: document_root,
+          scope: 'highlight'
         }
       end
 
       def pipeline
         Pipeline.new [
           Pipeline::MarkdownFilter,
+          Pipeline::SyntaxHighlightFilterPatch,
           Support::RelativeRootFilter,
           Pipeline::ImageMaxWidthFilter,
           Pipeline::MentionFilter,
           Pipeline::EmojiFilter,
-          Pipeline::RougeFilter,
           TaskList::Filter
-        ], context.merge(gfm: options[:gfm])
+        ], context
       end
 
       def document_root
