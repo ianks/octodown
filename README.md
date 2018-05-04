@@ -44,7 +44,18 @@ primary goal to reproduce it as faithfully as possible.
     octodown`
   - Else: `sudo gem install octodown`
 
-1. Install in VIM (_optional_):
+## Usage in VIM (_optional_):
+  - Use [asyncrun.vim](https://github.com/skywind3000/asyncrun.vim):
+
+    ```viml
+    " Plug 'skywind3000/asyncrun.vim' in your vimrc or init.nvim
+
+    :AsyncRun octodown %
+
+    " or, run whenever a mardown document is opened
+
+    autocmd FileType markdown :AsyncRun octodown %
+    ```
   - Use [Dispatch](https://github.com/tpope/vim-dispatch) and add this to
     your ~/.vimrc:
 
