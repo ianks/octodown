@@ -7,9 +7,10 @@ module Octodown
       include Octodown::Support
       include Renderable
 
-      attr_reader :rendered_markdown, :filepath, :options
+      attr_reader :rendered_markdown, :filepath, :options, :logger
 
       def initialize(rendered_markdown, options = {})
+        @logger = options[:logger]
         @rendered_markdown = rendered_markdown
         @options = options
         @filepath = File.join parent_dir, 'template', 'octodown.html.erb'
@@ -39,7 +40,11 @@ module Octodown
       end
 
       def present
-        Launchy.open PersistentTempfile.create(content, :html).path
+        if options[:no_open]
+          logger.warn('--no-open argument was used so no browser will be opened')
+        else
+          Launchy.open PersistentTempfile.create(content, :html).path
+        end
       end
 
       private

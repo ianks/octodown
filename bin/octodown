@@ -5,7 +5,6 @@ require 'octodown/support/file_chooser'
 require 'octodown/support/logger'
 require 'optparse'
 require 'launchy'
-
 # Default options
 options = {
   port: 8887,
@@ -69,6 +68,7 @@ end.parse!
 
 require 'tty-prompt'
 
+STDOUT.sync = true
 TUI = TTY::Prompt.new(enable_color: true)
 
 options[:file] = if ARGF.file == STDIN && options[:stdin]

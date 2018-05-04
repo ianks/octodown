@@ -29,7 +29,6 @@ describe 'Integration' do
       expect(res.body).to include 'You are now reading markdown.'\
                                   ' How lucky you are!'
     end
-
     it 'runs and receives data from the websocket' do
       message = nil
       EM.run do
@@ -53,13 +52,13 @@ describe 'Integration' do
     it 'prompts the user to pick the file' do
       aggregator = double(prompt_was_read: true, html_was_rendered: true)
 
-      PTY.spawn(octodown, '--raw') do |stdin, stdout, _pid|
+      PTY.spawn(octodown, '--raw', '--no-open') do |stdin, stdout, _pid|
         stdin.expect(/README\.md/, 5) do |_m|
           aggregator.prompt_was_read
           stdout.printf("\n")
         end
 
-        stdin.expect(/body/, 5) do |result|
+        stdin.expect(/DOCTYPE/, 5) do |result|
           aggregator.html_was_rendered(result.first)
         end
       end
