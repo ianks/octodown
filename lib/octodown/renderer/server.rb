@@ -70,8 +70,8 @@ module Octodown
         socket = ::Faye::WebSocket.new(env)
 
         socket.on(:open) do
+          @websockets << socket
           log_clients('Client joined')
-
           socket.send md
         end
 
@@ -80,7 +80,6 @@ module Octodown
           log_clients('Client left')
         end
 
-        @websockets << socket
         socket.rack_response
       end
 

@@ -35,11 +35,17 @@
   <script type='text/javascript'>
     'use strict';
 
-    var ws = new ReconnectingWebSocket(<%= host %>, [], { maxReconnectInterval: 1000 });
+    window.onload = function() {
+      var ws = new ReconnectingWebSocket(<%= host %>, [], { maxReconnectInterval: 1000 });
 
-    ws.onmessage = function(event) {
-      var body =  document.querySelector('article.markdown-body');
-      if (body) body.innerHTML = event.data;
-    };
+      ws.onmessage = function(event) {
+        var body =  document.querySelector('article.markdown-body');
+        if (body) body.innerHTML = event.data;
+      };
+
+      window.addEventListener("beforeunload", function() {
+        ws.close();
+      })
+    }
   </script>
 </html>
