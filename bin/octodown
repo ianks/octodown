@@ -71,16 +71,12 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-require 'tty-prompt'
-
-TUI = TTY::Prompt.new(enable_color: true)
-
 options[:file] = if ARGF.file == STDIN && options[:stdin]
                    STDIN
                  elsif ARGF.file != STDIN
                    ARGF.file
                  else
-                   FileChooser.new(prompt: TUI).choose_file
+                   Octodown::FileChooser.new(logger: options[:logger]).call
                  end
 
 Octodown.call options
