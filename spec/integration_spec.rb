@@ -12,7 +12,7 @@ describe 'Integration' do
   context 'when running with an explicit file' do
     before :all do
       @pid = fork do
-        exec "TEST=1 bundle exec #{octodown} #{dummy_path} --quiet"
+        exec "bundle exec #{octodown} #{dummy_path} --quiet --no-open"
       end
       sleep 5
     end

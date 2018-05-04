@@ -14,7 +14,8 @@ options = {
   presenter: :server,
   style: :github,
   stdin: false,
-  logger: Logger.new(STDOUT)
+  logger: Logger.new(STDOUT),
+  no_open: false
 }
 
 OptionParser.new do |opts|
@@ -61,6 +62,10 @@ OptionParser.new do |opts|
   opts.on_tail '-h', '--help', 'Show this message' do
     puts opts
     exit
+  end
+
+  opts.on '--no-open', 'Do not open the browser' do
+    options[:no_open] = true
   end
 end.parse!
 

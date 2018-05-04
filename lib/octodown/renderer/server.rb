@@ -39,7 +39,7 @@ module Octodown
       end
 
       def maybe_launch_browser
-        return if ENV['TEST']
+        return if options[:no_open]
 
         sleep 2.5
 
