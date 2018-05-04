@@ -1,6 +1,5 @@
 require 'rouge'
 require 'html/pipeline'
-require_relative './../../html/pipeline/syntax_hightlight_filter'
 require 'task_list/filter'
 require 'octodown/renderer/renderable'
 
@@ -45,7 +44,7 @@ module Octodown
       def pipeline
         Pipeline.new [
           Pipeline::MarkdownFilter,
-          Pipeline::SyntaxHighlightFilterPatch,
+          Pipeline::SyntaxHighlightFilter,
           Support::RelativeRootFilter,
           Pipeline::ImageMaxWidthFilter,
           Pipeline::MentionFilter,
