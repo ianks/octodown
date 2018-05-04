@@ -8,6 +8,8 @@ require 'launchy'
 module Octodown
   module Renderer
     class Server
+      Thread.abort_on_exception = true
+
       attr_reader :file, :path, :options, :port, :logger
 
       def initialize(_content, options = {})
@@ -24,7 +26,6 @@ module Octodown
         register_listener
 
         Thread.new do
-          Thread.abort_on_exception = true
           maybe_launch_browser
         end
 
@@ -34,7 +35,11 @@ module Octodown
       def boot_server
         logger.info "#{file.path} is getting octodown'd"
         logger.info "Server running on http://localhost:#{port}"
-        Rack::Handler::Puma.run app, Host: 'localhost', Port: port, Silent: true
+        Rack::Handler::Puma.run app,
+                                Host: 'localhost',
+                                Port: port,
+                                Silent: true,
+                                Threads: '2:8'
       end
 
       def maybe_launch_browser
@@ -105,7 +110,9 @@ module Octodown
           logger.info "Changes to #{file.path} detected, updating"
           md = render_md(file)
           @websockets.each do |socket|
-            socket.send md
+            Thread.new do
+              socket.send md
+            end
           end
         end
       end

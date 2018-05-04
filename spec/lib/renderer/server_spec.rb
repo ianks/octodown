@@ -64,7 +64,7 @@ describe Server do
 
     it 'serves in the specified port' do
       expect(Rack::Handler::Puma).to receive(:run)
-        .with app, Port: 4567, Host: 'localhost', Silent: true
+        .with app, Port: 4567, Host: 'localhost', Silent: true, Threads: '2:8'
       subject.present
     end
   end
