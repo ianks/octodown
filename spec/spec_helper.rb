@@ -2,6 +2,7 @@ $LOAD_PATH.unshift File.expand_path('../lib', __dir__)
 
 require 'octodown'
 require 'rack/test'
+require 'logger'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
@@ -28,7 +29,7 @@ RSpec.configure do |config|
 
   def opts
     {
-      gfm: false,
+      logger: Logger.new(File::NULL),
       port: 8887,
       presenter: :html,
       style: :github

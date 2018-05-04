@@ -4,6 +4,7 @@ require 'octodown'
 require 'octodown/support/file_chooser'
 require 'optparse'
 require 'launchy'
+require 'logger'
 
 include Octodown
 
@@ -12,7 +13,8 @@ options = {
   port: 8887,
   presenter: :server,
   style: :github,
-  stdin: false
+  stdin: false,
+  logger: Logger.new(STDOUT)
 }
 
 OptionParser.new do |opts|
@@ -31,6 +33,10 @@ OptionParser.new do |opts|
 
   opts.on '--stdin', 'Read from STDIN' do
     options[:stdin] = true
+  end
+
+  opts.on '--quiet', 'Shhhh.. keep quiet' do
+    options[:logger].level = Logger::FATAL
   end
 
   opts.on '-r', '--raw', 'Print raw HTML to STDOUT' do

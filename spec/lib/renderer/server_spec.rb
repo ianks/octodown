@@ -56,7 +56,10 @@ describe Server do
 
   context 'with option :port' do
     subject do
-      Server.new content, file: options[:file], port: 4567
+      Server.new content,
+                 logger: options[:logger],
+                 file: options[:file],
+                 port: 4567
     end
 
     it 'serves in the specified port' do
