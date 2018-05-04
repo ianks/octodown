@@ -9,7 +9,7 @@ describe GithubMarkdown do
   end
 
   it 'highlights the code' do
-    expect(subject).to include 'highlight-ruby'
+    expect(subject).to include 'class="highlight"'
   end
 
   it 'properly recognizes stdin' do
@@ -18,27 +18,17 @@ describe GithubMarkdown do
     expect(GithubMarkdown.render(STDIN)).to include 'Mic check... 1, 2, 3.'
   end
 
-  describe 'when :gfm option is set' do
-    let :md_factory do
-      lambda do |params|
-        GithubMarkdown.render(
-          dummy_file,
-          opts.merge(gfm: params[:gfm])
-        )
-      end
+  let :md_factory do
+    lambda do |params|
+      GithubMarkdown.render(
+        dummy_file,
+        opts.merge(gfm: params[:gfm])
+      )
     end
+  end
 
-    context 'true' do
-      it 'renders hard-wraps' do
-        expect(md_factory[gfm: true]).to include '<br>'
-      end
-    end
-
-    context 'false' do
-      it 'does not render hard-wraps' do
-        expect(md_factory[gfm: false]).to_not include '<br>'
-      end
-    end
+  it 'renders hard-wraps' do
+    expect(md_factory[gfm: true]).to include '<br>'
   end
 
   describe 'local file linking' do

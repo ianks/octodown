@@ -9,7 +9,6 @@ describe Renderer::HTML do
 
   it 'includes HTML from markdown rendering phase' do
     expect(subject).to include '<h1>Hello world!</h1>'
-    expect(subject).to include 'highlight-ruby'
   end
 
   it 'sets the title' do
