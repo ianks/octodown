@@ -49,7 +49,7 @@ describe 'Integration' do
   end
 
   context 'when no file is passed' do
-    it 'prompts the user to pick the file' do
+    it 'prompts the user to pick the file', retry: 5 do
       aggregator = double(prompt_was_read: true, html_was_rendered: true)
 
       PTY.spawn(octodown, '--raw', '--no-open') do |stdin, stdout, _pid|
