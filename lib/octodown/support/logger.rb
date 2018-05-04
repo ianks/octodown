@@ -6,6 +6,7 @@ module Octodown
       FORMAT = "%-5s: %s\n".freeze
 
       def self.build(dev: STDOUT, level: ::Logger::INFO)
+        dev.sync = true
         logger = ::Logger.new(dev)
         logger.level = level
         logger.formatter = method(:formatter)

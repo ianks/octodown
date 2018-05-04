@@ -30,6 +30,6 @@ describe Renderer::HTML do
   end
 
   it 'includes correct websocket address in js' do
-    expect(subject).to include 'new WebSocket("ws://localhost:8887")'
+    expect(subject).to include 'new ReconnectingWebSocket("ws://localhost:8887"'
   end
 end

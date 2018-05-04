@@ -17,7 +17,6 @@ module Octodown
         @path = File.dirname(File.expand_path(file.path))
         @port = options[:port]
         @websockets = []
-        @already_opened = false
         @mutex = Mutex.new
       end
 
@@ -27,7 +26,6 @@ module Octodown
         Thread.new do
           Thread.abort_on_exception = true
           maybe_launch_browser
-          Thread.exit
         end
 
         boot_server
@@ -45,10 +43,11 @@ module Octodown
         sleep 2.5
 
         @mutex.synchronize do
-          if @already_opened == false
-            @already_opened = true
+          if @websockets.empty?
             logger.info 'Loading preview in a new browser tab'
             Launchy.open "http://localhost:#{port}"
+          else
+            logger.info 'Re-using existing browser tab'
           end
         end
       end
@@ -65,34 +64,25 @@ module Octodown
 
       private
 
-      # rubocop:disable Metrics/MethodLength
       def render_ws(env)
         md = render_md(file)
 
         socket = ::Faye::WebSocket.new(env)
 
         socket.on(:open) do
-          @mutex.synchronize do
-            if @already_opened == false
-              logger.info 'Re-using octodown client from previous browser tab'
-            end
-
-            @already_opened = true
-          end
+          log_clients('Client joined')
 
           socket.send md
-          logger.debug "Clients: #{@websockets.size}"
         end
 
         socket.on(:close) do
           @websockets = @websockets.reject { |s| s == socket }
-          logger.debug "Clients: #{@websockets.size}"
+          log_clients('Client left')
         end
 
         @websockets << socket
         socket.rack_response
       end
-      # rubocop:enable Metrics/MethodLength
 
       def render_http(env)
         Rack::Response.new.tap do |res|
@@ -123,6 +113,10 @@ module Octodown
 
       def render_md(f)
         Renderer::GithubMarkdown.render f, options
+      end
+
+      def log_clients(msg)
+        logger.debug "#{msg}. Number of websocket clients: #{@websockets.size}"
       end
     end
   end # Support

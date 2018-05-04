@@ -6,7 +6,8 @@ module Octodown
           require 'listen'
 
           path = File.dirname(File.expand_path(file.path))
-          regex = Regexp.new("^#{File.basename(file.path)}$")
+          escaped_path = Regexp.escape(file.path)
+          regex = Regexp.new("^#{escaped_path}$")
 
           @listener ||= Listen.to(path, only: regex) do |modified, added, _rm|
             listener_callback.call if modified.any? || added.any?

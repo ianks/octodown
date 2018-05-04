@@ -37,6 +37,11 @@ OptionParser.new do |opts|
     options[:logger].level = Logger::FATAL
   end
 
+  opts.on '--debug', 'Debug the gem' do
+    ENV['LISTEN_GEM_DEBUGGING'] = '2'
+    options[:logger].level = Logger::DEBUG
+  end
+
   opts.on '-r', '--raw', 'Print raw HTML to STDOUT' do
     options[:presenter] = :raw
   end
@@ -68,7 +73,6 @@ end.parse!
 
 require 'tty-prompt'
 
-STDOUT.sync = true
 TUI = TTY::Prompt.new(enable_color: true)
 
 options[:file] = if ARGF.file == STDIN && options[:stdin]
