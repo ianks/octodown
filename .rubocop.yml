@@ -4,6 +4,7 @@ inherit_from: .rubocop_todo.yml
 Metrics/BlockLength:
   Exclude:
     - "spec/**/*.rb"
+    - "bin/octodown"
 
 Style/Documentation:
   Enabled: false

@@ -8,7 +8,6 @@ class FileChooser
   def choose_file
     choices = all_markdown_files
     choice = prompt.select('Which markdown file would you like to edit?', choices)
-    prompt.ok("#{choice} coming right up!")
     File.open(choice, 'r')
   end
 

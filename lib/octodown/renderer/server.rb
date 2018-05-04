@@ -34,6 +34,7 @@ module Octodown
       end
 
       def boot_server
+        logger.info "#{file.path} is getting octodown'd"
         logger.info "Server running on http://localhost:#{port}"
         Rack::Handler::Puma.run app, Host: 'localhost', Port: port, Silent: true
       end
@@ -112,7 +113,7 @@ module Octodown
 
       def register_listener
         Octodown::Support::Services::Riposter.call file do
-          logger.info 'Recompiling markdown...'
+          logger.info "Changes to #{file.path} detected, updating"
           md = render_md(file)
           @websockets.each do |socket|
             socket.send md

@@ -2,11 +2,9 @@
 
 require 'octodown'
 require 'octodown/support/file_chooser'
+require 'octodown/support/logger'
 require 'optparse'
 require 'launchy'
-require 'logger'
-
-include Octodown
 
 # Default options
 options = {
@@ -14,7 +12,7 @@ options = {
   presenter: :server,
   style: :github,
   stdin: false,
-  logger: Logger.new(STDOUT),
+  logger: Octodown::Support::Logger.build,
   no_open: false
 }
 
