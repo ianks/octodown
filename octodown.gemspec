@@ -2,8 +2,6 @@ lib = File.expand_path('lib', __dir__)
 
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'octodown/version'
-
-# rubocop:disable Metrics/BlockLength
 Gem::Specification.new do |spec|
   spec.name                  = 'octodown'
   spec.version               = Octodown::VERSION
@@ -28,6 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'puma',                       '~> 3.7'
   spec.add_dependency 'rack',                       '~> 2.0'
   spec.add_dependency 'rouge',                      '~> 3.1'
+  spec.add_dependency 'tty-prompt',                 '~> 0.16'
 
   spec.add_development_dependency 'bundler', '~> 1.7'
   spec.add_development_dependency 'octokit'

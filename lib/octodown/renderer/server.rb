@@ -11,7 +11,7 @@ module Octodown
       attr_reader :file, :path, :options, :port
 
       def initialize(_content, options = {})
-        @file = ARGF.file
+        @file = options[:file]
         @options = options
         @path = File.dirname(File.expand_path(file.path))
         @port = options[:port]

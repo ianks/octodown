@@ -1,6 +1,4 @@
 include Distribution
-
-# rubocop:disable Metrics/BlockLength
 namespace :distribution do
   desc 'Package octodown into self-contained programs'
   task :package do

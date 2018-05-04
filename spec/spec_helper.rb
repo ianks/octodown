@@ -29,7 +29,7 @@ RSpec.configure do |config|
   def opts
     {
       gfm: false,
-      port: 8080,
+      port: 8887,
       presenter: :html,
       style: :github
     }

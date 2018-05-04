@@ -1,4 +1,9 @@
+---
 inherit_from: .rubocop_todo.yml
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*.rb"
 
 Style/Documentation:
   Enabled: false
