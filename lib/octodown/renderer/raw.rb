@@ -12,7 +12,7 @@ module Octodown
       end
 
       def present
-        puts content
+        STDOUT.puts content
       end
     end
   end

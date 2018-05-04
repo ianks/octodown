@@ -1,19 +1,20 @@
 #!/usr/bin/env ruby
 
 require 'octodown'
+require 'octodown/support/file_chooser'
+require 'octodown/support/logger'
 require 'optparse'
 require 'launchy'
-
-include Octodown
-
 # Default options
 options = {
-  port: 8080,
-  presenter: :html,
-  style: :github
+  port: 8887,
+  presenter: :server,
+  style: :github,
+  stdin: false,
+  logger: Octodown::Support::Logger.build,
+  no_open: false
 }
 
-# rubocop:disable Metrics/BlockLength
 OptionParser.new do |opts|
   opts.banner = 'Usage: octodown [options]'
 
@@ -28,12 +29,24 @@ OptionParser.new do |opts|
     options[:style] = s
   end
 
+  opts.on '--stdin', 'Read from STDIN' do
+    options[:stdin] = true
+  end
+
+  opts.on '--quiet', 'Shhhh.. keep quiet' do
+    options[:logger].level = Logger::FATAL
+  end
+
   opts.on '-r', '--raw', 'Print raw HTML to STDOUT' do
     options[:presenter] = :raw
   end
 
   opts.on '-l', '--live-reload', 'Start a LiveReload server' do
     options[:presenter] = :server
+  end
+
+  opts.on '-h', '--html', 'Render to HTML' do
+    options[:presenter] = :html
   end
 
   opts.on(
@@ -47,6 +60,23 @@ OptionParser.new do |opts|
     puts opts
     exit
   end
+
+  opts.on '--no-open', 'Do not open the browser' do
+    options[:no_open] = true
+  end
 end.parse!
+
+require 'tty-prompt'
+
+STDOUT.sync = true
+TUI = TTY::Prompt.new(enable_color: true)
+
+options[:file] = if ARGF.file == STDIN && options[:stdin]
+                   STDIN
+                 elsif ARGF.file != STDIN
+                   ARGF.file
+                 else
+                   FileChooser.new(prompt: TUI).choose_file
+                 end
 
 Octodown.call options

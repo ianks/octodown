@@ -17,7 +17,7 @@ primary goal to reproduce it as faithfully as possible.
 ## Features
 
 - :new: Edit your markdown like a boss with LiveReload.
-  - `octodown --live-reload README.md`
+  - `octodown README.md`
 
 - Uses the same markdown parsers and CSS as Github for true duplication.
   - Yes emojis _are_ included. :smiling_imp:
@@ -29,7 +29,7 @@ primary goal to reproduce it as faithfully as possible.
   - The `atom` text editor markdown
 
 - Properly parses `STDIN`.
-  - `cat README.md | octodown`
+  - `cat README.md | octodown --stdin`
 
 ## Installation
 
@@ -50,7 +50,7 @@ primary goal to reproduce it as faithfully as possible.
 
     ```viml
     " Use octodown as default build command for Markdown files
-    autocmd FileType markdown let b:dispatch = 'octodown --live-reload %'
+    autocmd FileType markdown let b:dispatch = 'octodown %'
     ```
   - Caveat: make sure you follow the directions on the Dispatch README.md and
     make sure that the correct version of Ruby (the one which as Octodown
@@ -58,21 +58,18 @@ primary goal to reproduce it as faithfully as possible.
 
 ## Usage
 
-1. Basic:
-  - `octodown README.md`
+1. Keeping it simple (choose your files from a menu):
+  - `octodown`
 
 1. Markdown preview styling:
   - `octodown --style atom README.md`
 
-1. *nix lovers:
-  - `echo '# Hello world!' | octodown --raw > index.html`
-
-1. LiveReload at `http://localhost:4567`:
-  - `octodown README.md --live-reload --port 4567`
+1. Unix lovers:
+  - `echo '# Hello world!' | octodown --raw --stdin > index.html`
 
 ## Notes
 
-1. With no arguments given, octodown will read `STDIN` until `EOF` is reached.
+1. With `--stdin`, octodown will read `STDIN` until `EOF` is reached.
   - In order to work with this mode, type what you want into the input, then press
     `Ctrl-D` when finished.
 

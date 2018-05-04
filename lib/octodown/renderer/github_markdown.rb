@@ -10,11 +10,12 @@ module Octodown
       include HTML
       include Renderable
 
-      attr_reader :options, :file
+      attr_reader :options, :file, :logger
 
       def initialize(file, options = {})
         @file = file
         @options = options
+        @logger = options[:logger]
       end
 
       def content
@@ -24,7 +25,7 @@ module Octodown
           begin
             File.open(file.path, 'r') { |f| buffer = f.read }
           rescue Errno::ENOENT
-            puts '[WARN] something went wrong when trying to open the file'
+            logger.warn 'Something went wrong when trying to open the file'
           end
         end
         pipeline.call(buffer ||= 'could not read changes')[:output].to_s

@@ -8,10 +8,11 @@ require 'launchy'
 module Octodown
   module Renderer
     class Server
-      attr_reader :file, :path, :options, :port
+      attr_reader :file, :path, :options, :port, :logger
 
       def initialize(_content, options = {})
-        @file = ARGF.file
+        @logger = options[:logger]
+        @file = options[:file]
         @options = options
         @path = File.dirname(File.expand_path(file.path))
         @port = options[:port]
@@ -33,19 +34,20 @@ module Octodown
       end
 
       def boot_server
-        puts "[INFO] Server running on http://localhost:#{port}"
+        logger.info "#{file.path} is getting octodown'd"
+        logger.info "Server running on http://localhost:#{port}"
         Rack::Handler::Puma.run app, Host: 'localhost', Port: port, Silent: true
       end
 
       def maybe_launch_browser
-        return if ENV['TEST']
+        return if options[:no_open]
 
         sleep 2.5
 
         @mutex.synchronize do
           if @already_opened == false
             @already_opened = true
-            puts '[INFO] Loading preview in a new browser tab'
+            logger.info 'Loading preview in a new browser tab'
             Launchy.open "http://localhost:#{port}"
           end
         end
@@ -72,19 +74,19 @@ module Octodown
         socket.on(:open) do
           @mutex.synchronize do
             if @already_opened == false
-              puts '[INFO] Re-using octodown client from previous browser tab'
+              logger.info 'Re-using octodown client from previous browser tab'
             end
 
             @already_opened = true
           end
 
           socket.send md
-          puts "Clients: #{@websockets.size}" if ENV['DEBUG']
+          logger.debug "Clients: #{@websockets.size}"
         end
 
         socket.on(:close) do
           @websockets = @websockets.reject { |s| s == socket }
-          puts "Clients: #{@websockets.size}" if ENV['DEBUG']
+          logger.debug "Clients: #{@websockets.size}"
         end
 
         @websockets << socket
@@ -111,7 +113,7 @@ module Octodown
 
       def register_listener
         Octodown::Support::Services::Riposter.call file do
-          puts '[INFO] Recompiling markdown...'
+          logger.info "Changes to #{file.path} detected, updating"
           md = render_md(file)
           @websockets.each do |socket|
             socket.send md

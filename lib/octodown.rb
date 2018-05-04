@@ -13,7 +13,7 @@ module Octodown
   def self.call(options)
     include Octodown::Support::Services
 
-    DocumentPresenter.call ARGF.file, options
+    DocumentPresenter.call options[:file], options
   end
 
   def self.root
