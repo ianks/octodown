@@ -1,3 +1,3 @@
 module Octodown
-  VERSION = '1.8.5'.freeze
+  VERSION = '1.9.0'.freeze
 end
