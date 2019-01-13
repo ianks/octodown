@@ -3,7 +3,8 @@ Hello world!
 ![some-img](https://foo.com/bar.img)
 ![some-img](https://foo.com/bar.img)
 
-You are now reading markdown. How lucky you are!
+You are now reading markdown.
+How lucky you are!
 
 ```ruby
 def some_code()
