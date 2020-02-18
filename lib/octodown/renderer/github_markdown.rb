@@ -37,7 +37,8 @@ module Octodown
           asset_root: 'https://assets-cdn.github.com/images/icons/',
           server: options[:presenter] == :server,
           original_document_root: document_root,
-          scope: 'highlight'
+          scope: 'highlight',
+          gfm: options[:gfm] || false
         }
       end
 

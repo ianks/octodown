@@ -26,8 +26,8 @@ describe 'Integration' do
       res = Net::HTTP.start 'localhost', 8887 do |http|
         http.request(Net::HTTP::Get.new('/'))
       end
-      expect(res.body).to include 'You are now reading markdown.'\
-                                  ' How lucky you are!'
+      expect(res.body).to include "You are now reading markdown.\n"\
+                                  "How lucky you are!"
     end
     it 'runs and receives data from the websocket' do
       message = nil
@@ -43,8 +43,8 @@ describe 'Integration' do
           end
         end
       end
-      expect(message).to include('You are now reading markdown.'\
-                                 ' How lucky you are!')
+      expect(message).to include("You are now reading markdown.\n"\
+                                 "How lucky you are!")
     end
   end
 
