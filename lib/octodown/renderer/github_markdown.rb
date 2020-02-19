@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rouge'
 require 'html/pipeline'
 require 'task_list/filter'

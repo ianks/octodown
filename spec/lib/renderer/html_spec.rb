@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 include Octodown
 
 describe Renderer::HTML do

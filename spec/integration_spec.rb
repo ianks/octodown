@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'net/http'
 require 'faye/websocket'
 require 'eventmachine'
@@ -27,7 +29,7 @@ describe 'Integration' do
         http.request(Net::HTTP::Get.new('/'))
       end
       expect(res.body).to include "You are now reading markdown.\n"\
-                                  "How lucky you are!"
+                                  'How lucky you are!'
     end
     it 'runs and receives data from the websocket' do
       message = nil
@@ -44,7 +46,7 @@ describe 'Integration' do
         end
       end
       expect(message).to include("You are now reading markdown.\n"\
-                                 "How lucky you are!")
+                                 'How lucky you are!')
     end
   end
 

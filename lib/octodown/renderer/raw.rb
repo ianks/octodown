@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'octodown/renderer/renderable'
 
 module Octodown

@@ -1,4 +1,3 @@
----
 inherit_from: .rubocop_todo.yml
 
 Metrics/BlockLength:
@@ -14,3 +13,12 @@ Style/HashSyntax:
 
 Style/Lambda:
   Enabled: false
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashEachMethods:
+  Enabled: true

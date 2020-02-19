@@ -1,6 +1,6 @@
-include Octodown::Renderer
+# frozen_string_literal: true
 
-# rubocop:disable Metrics/BlockLength
+include Octodown::Renderer
 describe GithubMarkdown do
   subject { GithubMarkdown.render dummy_file }
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'uri'
 
 module Octodown
@@ -22,8 +24,8 @@ module Octodown
       def http_uri?(src)
         parsed_uri = begin
           URI.parse src
-        rescue URI::InvalidURIError
-          src
+                     rescue URI::InvalidURIError
+                       src
         end
 
         parsed_uri.is_a? URI::HTTP

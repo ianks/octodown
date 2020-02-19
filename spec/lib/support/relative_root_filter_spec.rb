@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe Octodown::Support::RelativeRootFilter do
   let(:_http_uri?) do
     lambda { |uri| subject.send :http_uri?, uri }

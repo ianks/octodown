@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'octodown/renderer/renderable'
 require 'octodown/support/persistent_tempfile'
 require 'octodown/renderer/github_markdown'

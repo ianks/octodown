@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'logger'
 
 module Octodown
   module Support
     class Logger
-      FORMAT = "%-5s: %s\n".freeze
+      FORMAT = "%-5s: %s\n"
 
       def self.build(dev: STDOUT, level: ::Logger::INFO)
         dev.sync = true

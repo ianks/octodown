@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require 'faye/websocket'
 require 'puma'
 require 'rack'
 require 'rack/handler/puma'
-require 'thread'
 require 'launchy'
 
 module Octodown
