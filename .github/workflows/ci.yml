@@ -1,4 +1,18 @@
 ---
+name: ci
+on:
+  push:
+    paths:
+      - ".github/workflows/ci.yml"
+      - "lib/**"
+      - "*.gemspec"
+      - "spec/**"
+      - "Rakefile"
+      - "Gemfile"
+      - ".rubocop.yml"
+  pull_request:
+    branches:
+      - master
 jobs:
   build:
     runs-on: ubuntu-latest
