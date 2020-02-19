@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'deckar01-task_list',         '~> 2.0'
   spec.add_dependency 'faye-websocket',             '~> 0.10'
   spec.add_dependency 'gemoji',                     '>= 2', '< 4'
-  spec.add_dependency 'html-pipeline',              '~> 2.8.0'
+  spec.add_dependency 'html-pipeline',              '>= 2.8', '< 2.13'
   spec.add_dependency 'launchy',                    '~> 2.4', '>= 2.4.3'
   spec.add_dependency 'listen',                     '~> 3.1'
   spec.add_dependency 'puma',                       '>= 3.7', '< 5.0'
