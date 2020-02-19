@@ -9,7 +9,7 @@ describe GithubMarkdown do
   end
 
   it 'highlights the code' do
-    expect(subject).to include 'class="highlight"'
+    expect(subject).to include 'class="highlight'
   end
 
   it 'properly recognizes stdin' do
