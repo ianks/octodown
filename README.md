@@ -1,7 +1,7 @@
 # :octocat: octodown
 
 [![GemVersion](https://badge.fury.io/rb/octodown.svg)](http://badge.fury.io/rb/octodown)
-![Build Status](https://github.com/ianks/octodown/workflows/.github/workflows/ci.yml/badge.svg)
+![Build Status](https://github.com/ianks/octodown/workflows/ci/badge.svg)
 
 Ever wanted to easily preview what your markdown would look like _exactly_ on
 Github? Ever wanted to do that from inside of a Terminal?
