@@ -7,6 +7,8 @@ module Octodown
         def self.call(file, &listener_callback)
           require 'listen'
 
+          return if @listener && @listener.processing?
+
           path = File.dirname(File.expand_path(file.path))
           escaped_path = Regexp.escape(file.path)
           regex = Regexp.new("^#{escaped_path}$")
