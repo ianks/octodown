@@ -22,14 +22,9 @@ jobs:
     name: Ruby ${{ matrix.ruby }}
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-ruby@v1
+      - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-      - name: Install latest bundler
-        run: |
-          gem install bundler --no-document
-          bundle config set without 'tools benchmarks docs'
-      - name: Bundle install
-        run: bundle install --jobs 4 --retry 3
+          bundler-cache: true # 'bundle install' and cache
       - name: Run all tests
         run: bundle exec rake
