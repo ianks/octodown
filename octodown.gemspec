@@ -32,7 +32,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler', '~> 2.0'
   spec.add_development_dependency 'octokit'
-  spec.add_development_dependency 'rack-test', '~> 1.0'
+  spec.add_development_dependency 'rack-test', '~> 2.0'
   spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'rspec', '~> 3.3'
   spec.add_development_dependency 'rspec-retry'
