@@ -26,7 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'launchy',                    '~> 2.4', '>= 2.4.3'
   spec.add_dependency 'listen',                     '~> 3.7'
   spec.add_dependency 'puma',                       '>= 3.7', '< 5.0'
-  spec.add_dependency 'rack',                       '~> 2.0'
+  spec.add_dependency 'rack',                       '>= 2', '< 4'
   spec.add_dependency 'rouge',                      '~> 3.1'
   spec.add_dependency 'tty-prompt',                 '~> 0.16'
 
